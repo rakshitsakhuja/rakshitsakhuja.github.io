@@ -133,7 +133,10 @@ let footer = $(`
     </div>
     <div class="footer-right">
       <h6 class="display-7">Get in Touch</h6>
-      <form style="width:80%; margin-left:7%;">
+      <form style="width:80%; margin-left:7%;" action="mailto:rakshitsakhuja@gmail.com"
+      method="POST"
+      enctype="multipart/form-data"
+      name="EmailForm">
         <div class="name">
           <input type="text" name="name" placeholder="Name" id="inputs" required>
         </div>
