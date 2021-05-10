@@ -133,7 +133,7 @@ let footer = $(`
     </div>
     <div class="footer-right">
       <h6 class="display-7">Get in Touch</h6>
-      <form style="width:80%; margin-left:7%;" action="https://formsubmit.co/rakshitsakhuja@gmail.com"
+      <form style="width:80%; margin-left:7%;" action="https://formsubmit.co/000e1fba7a850fa0bf160541c1cc4cbc"
       method="POST"
       name="EmailForm">
         <div class="name">

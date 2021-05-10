@@ -200,7 +200,7 @@ let footer = $(`
         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
           <div class="form-style-6">
             <h6 class="display">Get in Touch</h6>
-            <form action="https://formsubmit.co/rakshitsakhuja@gmail.com"
+            <form action="https://formsubmit.co/000e1fba7a850fa0bf160541c1cc4cbc"
             method="POST"
             
             name="EmailForm">
