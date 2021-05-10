@@ -133,13 +133,14 @@ let footer = $(`
     </div>
     <div class="footer-right">
       <h6 class="display-7">Get in Touch</h6>
-      <form style="width:80%; margin-left:7%;" action="mailto:rakshitsakhuja@gmail.com"
+      <form style="width:80%; margin-left:7%;" action="https://formsubmit.co/rakshitsakhuja@gmail.com"
       method="POST"
-      enctype="multipart/form-data"
       name="EmailForm">
         <div class="name">
           <input type="text" name="name" placeholder="Name" id="inputs" required>
         </div>
+        <input type="hidden" name="_subject" value="New submission from rakshitsakhuja.github.io!">
+        <input type="hidden" name="_next" value="rakshitsakhuja.github.io/thanks.html">
         <div class="email">
           <input type="email" name="email"  placeholder="Email"  id="inputs" required>
         </div>

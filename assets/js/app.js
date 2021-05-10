@@ -200,13 +200,15 @@ let footer = $(`
         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
           <div class="form-style-6">
             <h6 class="display">Get in Touch</h6>
-            <form action="mailto:rakshitsakhuja@gmail.com"
+            <form action="https://formsubmit.co/rakshitsakhuja@gmail.com"
             method="POST"
-            enctype="multipart/form-data"
+            
             name="EmailForm">
-              <input type="text" name="field1" placeholder="Your Name" />
-              <input type="email" name="field2" placeholder="Email Address" />
-              <textarea name="field3" placeholder="Type your Message"></textarea>
+              <input type="text" name="Name" placeholder="Your Name" required />
+              <input type="hidden" name="_subject" value="New submission from rakshitsakhuja.github.io!">
+              <input type="hidden" name="_next" value="rakshitsakhuja.github.io/thanks.html">
+              <input type="email" name="EmailId" placeholder="Email Address" required/>
+              <textarea name="Message" placeholder="Type your Message" required></textarea>
               <input type="submit" value="Send" />
             </form>
           </div>
