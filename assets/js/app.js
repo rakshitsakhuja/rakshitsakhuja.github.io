@@ -206,7 +206,8 @@ let footer = $(`
             name="EmailForm">
               <input type="text" name="Name" placeholder="Your Name" required />
               <input type="hidden" name="_subject" value="New submission from rakshitsakhuja.github.io!">
-              <input type="hidden" name="_next" value="rakshitsakhuja.github.io/thanks.html">
+              <input type="hidden" name="_next" value="https://rakshitsakhuja.github.io">
+              <input type="hidden" name="_captcha" value="false">
               <input type="email" name="EmailId" placeholder="Email Address" required/>
               <textarea name="Message" placeholder="Type your Message" required></textarea>
               <input type="submit" value="Send" />

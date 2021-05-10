@@ -140,7 +140,8 @@ let footer = $(`
           <input type="text" name="name" placeholder="Name" id="inputs" required>
         </div>
         <input type="hidden" name="_subject" value="New submission from rakshitsakhuja.github.io!">
-        <input type="hidden" name="_next" value="rakshitsakhuja.github.io/thanks.html">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://rakshitsakhuja.github.io">
         <div class="email">
           <input type="email" name="email"  placeholder="Email"  id="inputs" required>
         </div>
