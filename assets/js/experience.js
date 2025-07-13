@@ -4,26 +4,33 @@
 const experiencecards = document.querySelector(".experience-cards");
 const exp = [
   {
-    title: "Software Development Intern",
-    cardImage: "assets/images/experience-page/flipkart.jpg",
-    place: "Flipkart",
-    time: "(May, 2020 - present)",
-    desp: "<li>Worked to migrate Flipkart lite’s product page to AMP pages so that they load up instantly.</li> <li>Made changes in the current progressive web app of Flipkart to react to different actions performed on AMP page.</li> <li>Created a node module called “fk-amp” which abstracts all the files and middlewares and can be easily imported and used from express server.</li>",
+    title: "Senior Data Scientist",
+    cardImage: "assets/images/experience-page/mediacorp-seeklogo.png",
+    place: "Mediacorp Pte Ltd, Singapore",
+    time: "Nov 2022 – Present",
+    desp: "<li>Leading the development of video recommendation models (mewatch), managing a cross-functional team to enhance content discovery across multiple platforms (web, mobile, TV).</li><li>Developed LTR models (LightGBM, SBERT, CatBoost) with significant CTR improvements.</li><li>Designed and deployed in-house vector indexing API (gRPC, PyTorch) for real-time recommendations.</li><li>Built multiple recommendation models (GRU4Rec, content-based, collaborative filtering).</li><li>Implemented ML pipeline deployments using cloud services, CI/CD, Databricks, Kubernetes.</li><li>Executed large-scale A/B testing for model performance.</li><li>Leveraged LLMs for metadata enhancement and GenAI-based SQL generation pipelines.</li><li>Conducted technical workshops on RAGs using LlamaIndex.</li>"
   },
   {
-    title: "Student Developer",
-    cardImage: "assets/images/experience-page/gsoc.png",
-    place: "Google Summer Of Code",
-    time: "(Mar - Aug, 2019)",
-    desp: "<li>Worked with MOZILLA as a part of Google Summer Of Code.</li><li>Worked on Extension Activity Monitor which is a privileged extension for Firefox that uses the activityLog API (privileged API) to monitor the activities of the other installed extensions.</li><li>The activityLog API listens for logs from other installed extensions.</li>",
+    title: "Senior Data Scientist",
+    cardImage: "assets/images/experience-page/agreeya-logo.png",
+    place: "AgreeYa Solutions (Evalueserve), Noida, India",
+    time: "Nov 2020 – Oct 2022",
+    desp: "<li>Built a neural search engine using Elasticsearch for B2B clients, indexing documents and news, with autosuggested filters for organization and location using Named Entity Recognition.</li><li>Developed a recommendation engine using collaborative filtering for personalized news and document suggestions.</li><li>Implemented autocorrection functionality using Levenshtein distance (Peter Norvig's method), Soundex, and a custom MLE-based algorithm to select the best correction.</li><li>Built low-latency semantic search features such as related entities and related search queries using SBERT, transformers, FAISS.</li><li>Fine-tuned NER model using spaCy and PyTorch with BERT to extract locations and organizations, enabling entity-specific page generation.</li><li>Developed REST APIs using Python, Flask, Gunicorn, Nginx, and Supervisord to serve the features within the search engine.</li>"
   },
   {
-    title: "Research Intern",
-    cardImage: "assets/images/experience-page/IIT_Bombay.jpg",
-    place: "IIT, Bombay",
-    time: "(Dec, 19 - Jan, 20)",
-    desp:"<li>Worked on the project “LTI (Learning Tools Interoperability) 2.0 standards Implementation for ekShiksha.</li><li>Designed a software that would help faculty to create a quiz using the questions from the database based on his/her choice of topics and he should be provided with various facilities and options to create a quiz of his choice.</li>",
+    title: "Data Scientist",
+    cardImage: "assets/images/experience-page/escalent-logo.png",
+    place: "Grail Insights, Noida, India",
+    time: "Aug 2018 – Nov 2020",
+    desp: "<li>Demographic Modelling: Built multi-class classification models to predict demographics for POS data and feature engineered consumer KPIs related to buyer behavior for a retail client [Python, SQL, sci-kit-learn, NumPy, pandas].</li><li>Sentiment Analysis: For Quality Service Reviews, leveraged Naive Bayes as the baseline model, along with LogisticRegression/KNN/Linear SVM and LSTM(RNN) with mini-batches using Word Embeddings [Pytorch, sci-kit-learn, LSTM].</li><li>Built an in-house social media listening tool to preprocess open ends via NLP techniques such as Named Entity Recognition, TopicModeling(LDA), Word Embeddings (word2vec, glove), and Word Clouds using tf-idf to derive customized insights [Python, spaCy, nltk, NLP].</li>"
   },
+  {
+    title: "ETL Developer",
+    cardImage: "assets/images/experience-page/tcs-tata-consultancy-services-seeklogo.png",
+    place: "Tata Consultancy Services, Mumbai, India",
+    time: "Jun 2016 – Aug 2018",
+    desp: "<li>Built ETL pipelines and automated workflows using Informatica, Teradata, Python, Unix, and shell script; performed EDA to clean and merge data from multiple sources.</li>"
+  }
 ];
 
 const showCards2 = () => {
@@ -57,85 +64,23 @@ const showCards2 = () => {
 document.addEventListener("DOMContentLoaded", showCards2);
 
 
-// Volunteership Cards
-
-const volunteership = document.querySelector(".volunteership");
-const volunteershipcards = [
-  {
-    title: "GirlScript Summer Of Code 2020",
-    cardImage: "assets/images/experience-page/1.jpg",
-    description:
-      "Responsible for handling the projects GirlScript App and GirlScript Website Boilerplate.",
-  },
-  {
-    title: "StudentCode-in 2020",
-    cardImage: "assets/images/experience-page/2.jpg",
-    description:
-      "Responsible for handling open source contributions for the project Awesome Developer Portfolio.",
-  },
-  {
-    title: "PClub Summer Of Code 2020",
-    cardImage: "assets/images/experience-page/3.jpg",
-    description:
-      "Mentoring for the projects Deep Pixel, AutoVaidya, Just Resume and Doc2pen.",
-  },
-  {
-    title: "Hakin-Codes",
-    cardImage: "assets/images/experience-page/4.jpg",
-    description:
-      "Mentoring for the open source projects Deeppixel, Awesome Developer Portfolios and Doc2Pen.",
-  },
-  {
-    title: "30 DaysofFlutter",
-    cardImage: "assets/images/experience-page/5.jpg",
-    description:
-      "Helping beginners from their first steps in Flutter to building fully functional cross-platform applications.",
-  },
-  {
-    title: "Garuda Hacks",
-    cardImage: "assets/images/experience-page/6.jpg",
-    description:
-      "MLH sponsored Indonesia's premier Global Virtual Hackathon on 14 - 16th August 2020.",
-  },
-];
-
-const showCards = () => {
-  let output = "";
-  volunteershipcards.forEach(
-    ({ title, cardImage, description }) =>
-      (output += `        
-      <div class="card volunteerCard" style="height: 600px;width:400px">
-      
-      <img src="${cardImage}" height="300" width="65" class="card-img" style="border-radius:10px">
-      <div class="content">
-          <h2 class="volunteerTitle">${title}</h2><br>
-          <p class="copy">${description}</p></div>
-      
-      </div>
-      `)
-  );
-  volunteership.innerHTML = output;
-};
-document.addEventListener("DOMContentLoaded", showCards);
-
-
 // Mentorship Card
 
 
 const mentorshipcards = document.querySelector(".mentorship-cards");
 const mentor = [
   {
-    title: "HakinCode",
-    image: "assets/images/experience-page/hakin.png",
-    time: "06/2020 - 08/2020",
-    desp: "<li>It is an open source community where students and mentors can apply.</li><hr /><li>Ample amount of technologies and projects are there and we are given opportunity to work on them according to our interest and knowledge.</li>",
+    title: "Co-Author, Manning Publications",
+    image: "assets/images/experience-page/manning.png",
+    time: "2023 – Present",
+    desp: "Co-authored a LiveProject with Manning Publications on building domain-specific language models."
   },
   {
-    title: "Google Summer of Code",
-    image: "assets/images/experience-page/gsoc.png",
-    time: "03/2020 - 08/2020",
-    desp: "<li>Google Summer of Code is a global program focused on introducing students to open source software development.</li><hr /><li>It is a great platform to explore new areas, maybe discover a new career path!</li>",
-  },
+    title: "Mentor, Great Learning",
+    image: "assets/images/experience-page/great_learning.png",
+    time: "2021 – Present",
+    desp: "Mentored students in data science and machine learning, guiding them through projects and career development."
+  }
 ];
 
 const showCards3 = () => {

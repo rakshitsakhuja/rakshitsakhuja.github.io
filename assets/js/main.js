@@ -44,7 +44,7 @@ let header = $(`
         <li><a class="white-text" href="research.html">Research</a></li>
         <li><a class="white-text" href="education.html">Education</a></li>
         <li><a class="white-text" href="skill.html">Skills</a></li>
-        <li><a class="white-text" href="index.html">Blog</a></li>
+        <li><a class="white-text" href="https://rakshitsakhuja.github.io/blogs/" target="_blank">Blog</a></li>
         <!--TOGGLE FOR LIGHT/DARK MODE-->
         <li>
           <label for="switch-1" class="theme-switch">
@@ -73,7 +73,7 @@ let header = $(`
 <li><a href="research.html">Research</a></li>
 <li><a href="education.html">Education</a></li>
 <li><a href="skill.html">Skills</a></li>
-<li><a href="index.html">Blog</a></li>
+<li><a href="https://rakshitsakhuja.github.io/blogs/" target="_blank">Blog</a></li>
 
 <!--TOGGLE FOR LIGHT/DARK MODE-->
         <li>
@@ -250,5 +250,47 @@ if (checkbox) {
     });
   } 
 }
+
+// Add or update CSS variables for a softer color palette
+const style = document.createElement('style');
+style.innerHTML = `
+  html[data-theme="light"] {
+    --primary-bg: #f7f8fa;
+    --primary-text: #222;
+    --accent: #6c63ff;
+    --navbar-bg: #f7f8fa;
+    --navbar-text: #222;
+    --footer-bg: #f7f8fa;
+    --footer-text: #222;
+    --btn-bg: #6c63ff;
+    --btn-text: #fff;
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+  html[data-theme="dark"] {
+    --primary-bg: #23272f;
+    --primary-text: #f7f8fa;
+    --accent: #6c63ff;
+    --navbar-bg: #23272f;
+    --navbar-text: #f7f8fa;
+    --footer-bg: #23272f;
+    --footer-text: #f7f8fa;
+    --btn-bg: #6c63ff;
+    --btn-text: #fff;
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+  nav, .footer, .webintern-footer {
+    background: var(--navbar-bg) !important;
+    color: var(--navbar-text) !important;
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+  .btn, .btn-primary {
+    background: var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+    border-radius: 6px;
+    font-family: 'Poppins', Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(108,99,255,0.08);
+  }
+`;
+document.head.appendChild(style);
 
 

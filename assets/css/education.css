@@ -37,7 +37,7 @@ html[data-theme = 'dark']
 }
 .sect
 {
-    height: 140vh;
+    height: 100vh;
     width: 100%;
     background-size: cover;
     background-position: center center;
@@ -52,21 +52,29 @@ html[data-theme = 'dark']
 
 .s2 .head{
   font-size:2rem;
+  margin-bottom: 1rem;
+  color: #000 !important;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .s2 h4{
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: #000 !important;
+  font-weight: bold;
 }
 
 .qual{
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .s2 p
 {
-  margin-top: -0.5rem;
+  margin-top: -0.3rem;
   font-weight: 450;
-  font-size: 2.5vh;
+  font-size: 2.2vh;
+  color: #000 !important;
 }
 .s2 .card img
 {
@@ -82,18 +90,32 @@ html[data-theme = 'dark']
   color:black;
 }
 
+.s2 .card {
+  border-radius: 1.5rem;
+  padding: 0.8rem 0.3rem;
+  margin-bottom: 1.5rem;
+}
+.s2 .card img {
+  border-radius: 1.5rem;
+}
+.s2 .col-xl-6, .s2 .col-md-6, .s2 .col-sm-12 {
+  min-height: 60px !important;
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+}
+
 
 @media only screen and (max-width: 767px) {
 
     .edSection{
-        margin-top: 400px;
+        margin-top: 100px;
     }
 }
 
 @media only screen and (max-width: 600px) {
 
     .edSection{
-        margin-top: 250px;
+        margin-top: 80px;
     }
 }
 
@@ -166,6 +188,7 @@ html[data-theme = 'dark']
   cursor: pointer;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 #mooc .card:hover {
@@ -178,152 +201,4 @@ html[data-theme = 'dark']
 }
 
 /* SVG animation */
-
-#Girl
-{
-    animation: swing ease-in-out 1s infinite alternate;
-    transform-origin: center -20px;
-    transform-box: fill-box;
-    float:left;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
-
-}
-
-@keyframes swing {
-    0% { transform: rotate(9deg); }
-    100% { transform: rotate(-9deg); }
-}
-
-
-#Vector_38
-{
-    animation: swing ease-in-out 1s infinite alternate;
-    transform-origin: center 0px;
-    transform-box: fill-box;
-    float:left;
-}
-
-#Vector_39{
-    animation: swing ease-in-out 1s infinite alternate;
-    transform-origin: center 0px;
-    transform-box: fill-box;
-    float:left;
-}
-
-#Vector_40
-{
-    animation: swing ease-in-out 1s infinite alternate;
-    transform-origin: center -20px;
-    transform-box: fill-box;
-    float:left;
-}
-
-#leaf12
-{
-    -webkit-animation: shake-bottom 9s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-	        animation: shake-bottom 9s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-            transform-box: fill-box;
-}
-
-#leaf13
-{
-    -webkit-animation: shake-bottom 8s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-	        animation: shake-bottom 8s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-            transform-box: fill-box;
-}
-
-#lef14
-{
-    -webkit-animation: shake-bottom 7.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-	        animation: shake-bottom 7.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-            transform-box: fill-box;
-}
-
-#leaf15
-{
-    -webkit-animation: shake-bottom 7s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-	        animation: shake-bottom 7s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-            transform-box: fill-box;
-}
-
-#leaf16
-{
-    -webkit-animation: shake-bottom 6.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-	        animation: shake-bottom 6.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-            transform-box: fill-box;
-}
-
-#leaf17
-{
-   
-	        animation: shake-bottom 6s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
-            transform-box: fill-box;
-}
-
-@-webkit-keyframes shake-bottom {
-  0%,
-  100% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-  }
-  10% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-  20%,
-  40%,
-  60% {
-    -webkit-transform: rotate(-4deg);
-            transform: rotate(-4deg);
-  }
-  30%,
-  50%,
-  70% {
-    -webkit-transform: rotate(4deg);
-            transform: rotate(4deg);
-  }
-  80% {
-    -webkit-transform: rotate(-2deg);
-            transform: rotate(-2deg);
-  }
-  90% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-}
-@keyframes shake-bottom {
-  0%,
-  100% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-  }
-  10% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-  20%,
-  40%,
-  60% {
-    -webkit-transform: rotate(-4deg);
-            transform: rotate(-4deg);
-  }
-  30%,
-  50%,
-  70% {
-    -webkit-transform: rotate(4deg);
-            transform: rotate(4deg);
-  }
-  80% {
-    -webkit-transform: rotate(-2deg);
-            transform: rotate(-2deg);
-  }
-  90% {
-    -webkit-transform: rotate(2deg);
-            transform: rotate(2deg);
-  }
-}
 

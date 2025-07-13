@@ -5,65 +5,30 @@ AOS.init();
 const moocs = document.querySelector(".moocs");
 const moocscards = [
   {
-    title: "Data Science",
+    title: "ChatGPT Prompt Engineering for Developers",
+    cardImage: "assets/images/education-page/deeplearning_ai.png",
+    moocLink: "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+  },
+  {
+    title: "Building Generative AI Applications with Gradio",
+    cardImage: "assets/images/education-page/deeplearning_ai.png",
+    moocLink: "https://www.deeplearning.ai/short-courses/building-generative-ai-applications-with-gradio/",
+  },
+  {
+    title: "Building Intelligent Recommender Systems",
+    cardImage: "assets/images/education-page/nvidia.png",
+    moocLink: "https://courses.nvidia.com/certificates/",
+  },
+  {
+    title: "Fundamentals of Accelerated Computing with Python (Numba)",
+    cardImage: "assets/images/education-page/nvidia.png",
+    moocLink: "https://courses.nvidia.com/certificates/",
+  },
+  {
+    title: "NLP with Classification and Vector Spaces",
     cardImage: "assets/images/education-page/coursera1.png",
-    moocLink: "https://www.coursera.org/browse/data-science",
-  },
-  {
-    title: "Cryptography",
-    cardImage: "assets/images/education-page/udemy.png",
-    moocLink: "https://www.udemy.com/course/cryptography-for-beginners/",
-  },
-  {
-    title: "Machine Learning",
-    cardImage: "assets/images/education-page/coursera1.png",
-    moocLink: "https://www.coursera.org/learn/machine-learning",
-  },
-  {
-    title: "Introduction to HTML 5",
-    cardImage: "assets/images/education-page/udacity_logo.png",
-    moocLink: "https://www.udacity.com/course/intro-to-html-and-css--ud001",
-  },
-  {
-    title: "Introduction to CSS 3",
-    cardImage: "assets/images/education-page/udacity_logo.png",
-    moocLink: "https://www.udacity.com/course/intro-to-html-and-css--ud001",
-  },
-  {
-    title: "Javascript",
-    cardImage: "assets/images/education-page/udacity_logo.png",
-    moocLink: "https://www.udacity.com/course/intro-to-javascript--ud803",
-  },
-  {
-    title: "Bootstrap 4",
-    cardImage: "assets/images/education-page/udemy.png",
-    moocLink: "https://www.udemy.com/course/bootstrap-4-tutorials/",
-  },
-  {
-    title: "Intro to React",
-    cardImage: "assets/images/education-page/EdX.png",
-    moocLink: "https://www.edx.org/learn/reactjs",
-  },
-  {
-    title: "Intro to React Native",
-    cardImage: "assets/images/education-page/coursera1.png",
-    moocLink: "https://www.coursera.org/lecture/react-native/introduction-to-react-native-Eax0D",
-  },
-  {
-    title: "NodeJS, Express and MongoDB",
-    cardImage: "assets/images/education-page/coursera1.png",
-    moocLink: "https://www.coursera.org/learn/server-side-nodejs",
-  },
-  {
-    title: "XML-AJAX",
-    cardImage: "assets/images/education-page/udemy.png",
-    moocLink: "https://www.udemy.com/course/xml-from-beginner-to-expert/",
-  },
-  {
-    title: "Data Structures & Algorithms",
-    cardImage: "assets/images/education-page/udacity_logo.png",
-    moocLink: "https://www.udacity.com/course/data-structures-and-algorithms-nanodegree--nd256",
-  },
+    moocLink: "https://www.coursera.org/learn/classification-vector-spaces-in-nlp",
+  }
 ];
 
 const experience = [
@@ -113,11 +78,11 @@ const showCards = () => {
   moocscards.forEach(
     ({ title, cardImage, moocLink }) =>
     (output += `        
-        <div class="col-6 col-md-3 col-sm-4 column" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="600" >  
+        <div class="col-6 col-md-3 col-sm-4 column" data-aos="fade-up" data-aos-easing="linear">  
             <div class="card mb-3 mx-auto">
-               <div class="content">
+               <div class="content d-flex align-items-center justify-content-center" style="height:120px;">
                   <div class="content-overlay"></div>
-                    <img src=${cardImage} class="card-img-top content-image">     
+                    <img src=${cardImage} class="card-img-top content-image" style="max-height:60px; width:auto; display:block; margin:auto;">     
                   <div class="content-details fadeIn-bottom">
                     <a href="${moocLink}" target="_blank"><i class="fa fa-info-circle fa-2x" aria-hidden="true" style="color: white;"></i></a>                                   
                   </div>
@@ -137,23 +102,7 @@ document.addEventListener("DOMContentLoaded", showCards);
 /* Badges*/
 
 const bagdes = document.querySelector(".badges");
-const badgesection = [
-  {
-    title: "Google Developer Essentials",
-    image: "assets/images/education-page/badge1.png",
-    description: "Earned May 20, 2020",
-  },
-  {
-    title: "VM Migration",
-    image: "assets/images/education-page/badge2.png",
-    description: "Earned June 20, 2020",
-  },
-  {
-    title: "G Suite Essentials",
-    image: "assets/images/education-page/badge3.png",
-    description: "Earned July 20, 2020",
-  },
-];
+const badgesection = [];
 
 const showCards1 = () => {
   let output = "";
@@ -176,32 +125,17 @@ document.addEventListener("DOMContentLoaded", showCards1);
 const timeline = document.querySelector(".timeline");
 const timelinesection = [
   {
-    heading: "Massachusetts Institute of Technology",
+    heading: "Indian Institute of Technology Hyderabad",
     image: "./assets/images/education-page/timeline-1.svg",
-    subheading: "Bachelors of Science, Computer Science & Engineering, (2020-2024)",
-    description: "<li>Top 1% in the department</li><li>Best undergraduate Reseracher</li><li>Betsy Schumacker Woman</li><li>Athlete of the Year Award</li>",
+    subheading: "Master of Technology in Data Science, 2020-2023",
+    description: "<li>Thesis: Survey on Natural Language Understanding for Tabular Data using TAPAS and TableFormer</li><li>Project: Query Auto Completion using Deep Learning</li>",
   },
-
   {
-    heading: "Massachusetts Institute of Technology",
-    image: "./assets/images/education-page/timeline-1.svg",
-    subheading: "Bachelors of Science, Computer Science & Engineering, (2020-2024)",
-    description: "<li>Top 1% in the department</li><li>Best undergraduate Reseracher</li><li>Betsy Schumacker Woman</li><li>Athlete of the Year Award</li>",
-  },
-
-  {
-    heading: "Massachusetts Institute of Technology",
-    image: "./assets/images/education-page/timeline-1.svg",
-    subheading: "Bachelors of Science, Computer Science & Engineering, (2020-2024)",
-    description: "<li>Top 1% in the department</li><li>Best undergraduate Reseracher</li><li>Betsy Schumacker Woman</li><li>Athlete of the Year Award</li>",
-  },
-
-  {
-    heading: "Massachusetts Institute of Technology",
-    image: "./assets/images/education-page/timeline-1.svg",
-    subheading: "Bachelors of Science, Computer Science & Engineering, (2020-2024)",
-    description: "<li>Top 1% in the department</li><li>Best undergraduate Reseracher</li><li>Betsy Schumacker Woman</li><li>Athlete of the Year Award</li>",
-  },
+    heading: "Dr. A.P.J. Abdul Kalam Technical University",
+    image: "./assets/images/education-page/timeline-2.svg",
+    subheading: "Bachelor of Technology in Computer Science, 2012-2016",
+    description: "",
+  }
 ];
 
 const showCards2 = () => {

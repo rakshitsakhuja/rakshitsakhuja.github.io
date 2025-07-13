@@ -283,7 +283,7 @@ body{
 
 /*
 ---------------------------
-   TWITTER MICROANIMATION
+   X (TWITTER) MICROANIMATION
 ---------------------------
 */
 .twitter-icon{
@@ -291,20 +291,9 @@ body{
   margin-left: 12px;
 }
 
-.twitter:hover #wing1{
-      transform-origin:center;
-      animation: flap 0.4s ease-out infinite alternate;
-   }	
-   
-.twitter:hover #wing2{
-    transform-origin:center;
-    animation: flap 0.4s ease-in infinite alternate;
- }		
-
-@keyframes flap{
-     50%{
-      transform:scaleX(-1) rotate(-45deg) translate(-40px,-40px);
-     }
+.twitter:hover .twitter-icon {
+      transform: scale(1.1);
+      transition: transform 0.3s ease;
    }
 
 /*
