@@ -1,0 +1,164 @@
+---
+title: "Recommender Systems - Blogs from Kaggle"
+author: "Rakshit Sakhuja"
+date: "2020-01-28"
+categories: [machine-learning, recommendation-systems, kaggle]
+description: "Collection of useful links and concepts about building recommendation systems from Kaggle tutorials"
+---
+
+## Links:
+
+[**https://github.com/grahamjenson/list_of_recommender_systems**](https://github.com/grahamjenson/list_of_recommender_systems) 
+
+[**https://www.pinterest.de/dataliftoff/recommender-systems/python-libraries/**](https://www.pinterest.de/dataliftoff/recommender-systems/python-libraries/) 
+
+[**https://www.kaggle.com/gunnvant/building-content-recommender-tutorial**](https://www.kaggle.com/gunnvant/building-content-recommender-tutorial)
+
+## Key Concepts
+
+1. Recommendation engines used by the official ted page, will be a degrees of magnitude more sophisticated than what I can demonstrate here and would also involve use of some sort of historical user-item interaction data.
+
+2. Generate recommendations just using content when you don't have any user-item interaction data
+
+3. When you are starting out new and still want to provide the consumers of your content relevant contextual recommendations
+
+4. Recommend talks based on the similarity of their content, the first thing I will have to do is to, create a representation of the transcripts that are amenable to comparison. One way of doing this is to create a tfidf vector for each transcript.
+
+### Core Functions:
+- `TfidfVectorizer`
+- `cosine_similarity(matrix)`
+- `get_similar_articles`
+
+### Additional Improvements:
+5. tf-idf with unigrams, you can try using bigrams and see if you get better results.
+6. Try using pre-trained word vectors such as word2vec to create vector representation of just the Titles and try to find similarity using cosine distance
+
+## Amazon Reviews Recommender System
+
+[**https://www.kaggle.com/saurav9786/recommender-system-using-amazon-reviews**](https://www.kaggle.com/saurav9786/recommender-system-using-amazon-reviews)
+
+> Amazon uses currently item-item collaborative filtering, which scales to massive datasets and produces high quality recommendation system in the real time.
+
+> This system is a kind of information filtering system which seeks to predict the "rating" or preferences which user is interested in.
+
+### Types of Recommendation Systems
+
+There are mainly 6 types of the recommendations systems:
+
+1. **Popularity based systems**: Works by recommending items viewed and purchased by most people and are rated high. It is not a personalized recommendation.
+
+2. **Classification model based**: Works by understanding the features of the user and applying the classification algorithm to decide whether the user is interested or not in the product.
+
+3. **Content based recommendations**: Based on the information on the contents of the item rather than on the user opinions. The main idea is if the user likes an item then he or she will like the "other" similar item.
+
+4. **Collaborative Filtering**: Based on assumption that people like things similar to other things they like, and things that are liked by other people with similar taste. It is mainly of two types: a) User-User b) Item-Item
+
+5. **Hybrid Approaches**: This system approach is to combine collaborative filtering, content-based filtering, and other approaches.
+
+6. **Association rule mining**: Association rules capture the relationships between items based on their patterns of co-occurrence across transactions.
+
+### Attribute Information:
+- **userId**: Every user identified with a unique id
+- **productId**: Every product identified with a unique id
+- **Rating**: Rating of the corresponding product by the corresponding user
+- **timestamp**: Time of the rating (ignore this column for this exercise)
+
+### Implementation Steps:
+1. Popularity based
+2. Check the distribution of the rating
+3. On the basis of Rating.count()
+
+CF is based on the idea that the best recommendations come from people who have similar tastes. In other words, it uses historical item ratings of like-minded people to predict how someone would rate an item. Collaborative filtering has two sub-categories that are generally called memory based and model-based approaches.
+
+#### Memory-based collaborative filtering system
+```python
+from surprise import KNNWithMeans
+```
+
+Parameter: `user_based true/false` to switch between user-based or item-based collaborative filtering
+
+#### Model-based collaborative filtering system
+The advantage of these methods is that they are able to recommend a larger number of items to a larger number of users, compared to other methods like memory based approach. They have large coverage, even when working with large sparse matrices.
+
+```python
+new_df1.pivot_table
+from sklearn.decomposition import TruncatedSVD
+np.corrcoef(decomposed_matrix)
+```
+
+## Tutorial: Recommendation Systems
+
+[**https://www.kaggle.com/kanncaa1/recommendation-systems-tutorial**](https://www.kaggle.com/kanncaa1/recommendation-systems-tutorial)
+
+### User Based Collaborative Filtering
+
+- Collaborative filtering is making recommend according to combination of your experience and experiences of other people.
+- First we need to make user vs item matrix.
+- Each row is users and each columns are items like movie, product or websites
+- Secondly, computes similarity scores between users.
+- Each row is users and each row is vector.
+- Compute similarity of these rows (users).
+- Thirdly, find users who are similar to you based on past behaviours
+- Finally, it suggests that you are not experienced before.
+
+#### Example:
+- Think that there are two people
+- First one watched 2 movies that are lord of the rings and hobbit
+- Second one watched only lord of the rings movie
+- User based collaborative filtering computes similarity of these two people and sees both are watched a lord of the rings.
+- Then it recommends hobbit movie to second one
+
+#### Problems with User Based Collaborative Filtering:
+- In this system, each row of matrix is user. Therefore, comparing and finding similarity between of them is computationally hard and spend too much computational power.
+- Also, habits of people can be changed. Therefore making correct and useful recommendation can be hard in time.
+
+### Item Based Collaborative Filtering
+
+- In this system, instead of finding relationship between users, used items like movies or stuffs are compared with each others.
+- In user based recommendation systems, habits of users can be changed. This situation makes hard to recommendation. However, in item based recommendation systems, movies or stuffs does not change. Therefore recommendation is easier.
+- On the other hand, there are almost 7 billion people all over the world. Comparing people increases the computational power. However, if items are compared, computational power is less.
+
+#### Implementation:
+```python
+["userId","movieId","rating"]
+data.pivot_table(index = ["userId"],columns = ["title"],values = "rating")
+movie_watched = pivot_table["Bad Boys (1995)"]   
+similarity_with_other_movies = pivot_table.corrwith(movie_watched)  # find correlation
+similarity_with_other_movies = similarity_with_other_movies.sort_values(ascending=False)
+```
+
+## Goodreads Collaborative Recommender System
+
+[**https://www.kaggle.com/sriharshavogeti/collaborative-recommender-system-on-goodreads**](https://www.kaggle.com/sriharshavogeti/collaborative-recommender-system-on-goodreads)
+
+### Naive item-similarity based recommender system
+
+Dataset structure:
+| **book_id** | **user_id** | **rating** |
+|-------------|-------------|------------|
+
+Create dictionary corresponding to each book id with its mapping and its key value as user_ids:rating
+
+```python
+dictVectorizer = DictVectorizer(sparse=True)
+vector = dictVectorizer.fit_transform(listOfDictonaries)
+cosine_similarity(vector)
+np.argsort(pairwiseSimilarity[row])[-7:-2][::-1]
+```
+
+## Deep Recommender Systems
+
+[**https://www.kaggle.com/morrisb/how-to-recommend-anything-deep-recommender**](https://www.kaggle.com/morrisb/how-to-recommend-anything-deep-recommender)
+
+### 11. Recommendation Engines
+- 11.1. Mean Rating
+- 11.2. Weighted Mean Rating
+- 11.3. Cosine User-User Similarity
+- 11.4. Cosine TFIDF Movie Description Similarity
+- 11.5. Matrix Factorisation With Keras And Gradient Descent
+- 11.6. Deep Learning With Keras
+- 11.7. Deep Hybrid System With Metadata And Keras
+
+```python
+df_train.pivot_table(index='User', columns='Movie', values='Rating')
+```

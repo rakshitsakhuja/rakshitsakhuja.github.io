@@ -1,0 +1,175 @@
+---
+title: "ElasticSearch - Create and Delete operations in Python"
+author: "Rakshit Sakhuja"
+date: "2025-08-08"
+categories: [elasticsearch, python, database]
+description: "ElasticSearch and Python Implementation for CRUD operations"
+---
+
+## Installation and Setup
+
+First, install the ElasticSearch Python client:
+
+```python
+!pip install elasticsearch
+```
+
+## Import Required Libraries
+
+```python
+try:
+    import os
+    import sys
+    import elasticsearch
+    from elasticsearch import Elasticsearch
+    import pandas as pd
+    print("All Modules Loaded ! ")
+except Exception as e:
+    print("Some Modules are Missing {}".format(e))
+```
+
+## Connecting to ElasticSearch
+
+```python
+def connect_elasticsearch():
+    es = None
+    es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+    if es.ping():
+        print('Connected ')
+    else:
+        print('Please Check!..not connected!')
+    return es
+
+es = connect_elasticsearch()
+```
+
+## Creating Indices
+
+Create new indices in ElasticSearch:
+
+```python
+es.indices.create(index='test-index', ignore=400)
+es.indices.create(index='test-index1', ignore=400)
+```
+
+The `ignore=400` parameter ignores the error if the index already exists.
+
+## Listing All Indices
+
+### Method 1: Get all indices including system indices
+
+```python
+res = es.indices.get_alias("*")
+for Name in res:
+    print(Name)
+```
+
+### Method 2: Get indices as dict keys
+
+```python
+indices = es.indices.get_alias().keys()
+for Name in indices:
+    print(Name)
+```
+
+### Method 3: Filter specific indices
+
+```python
+for Name in [i for i in es.indices.get_alias().keys() if i in ['test-index1','test-index']]:
+    print("Deleted {} ".format(Name))
+    es.indices.delete(index=Name, ignore=[400, 404])
+```
+
+## Working with Documents
+
+### Sample Data
+
+Create sample documents to index:
+
+```python
+e1 = {
+    "first_name": "Soumil",
+    "last_name": "Shah",
+    "age": 24,
+    "about": "Full stack Software Developers ",
+    "interests": ['Youtube','music'],
+}
+
+e2 = {
+    "first_name": "nitin",
+    "last_name": "Shah",
+    "age": 58,
+    "about": "Soumil father ",
+    "interests": ['Stock','Relax'],
+}
+```
+
+### Creating Documents
+
+Create an index and add documents:
+
+```python
+es.indices.create(index='person', ignore=400)
+
+res1 = es.index(index='person', doc_type='people', body=e1)
+res2 = es.index(index='person', doc_type='people', body=e2)
+
+print("RES1 : {}".format(res1))
+print("RES2 : {}".format(res2))
+```
+
+**Note**: The `doc_type` parameter is deprecated in newer versions of ElasticSearch. Use typeless endpoints instead.
+
+## Searching Documents
+
+### Match All Query
+
+Search for all documents in an index:
+
+```python
+query = {"query": {
+        "match_all": {}
+    }}
+
+res = es.search(index="person", body=query, size=1000)
+```
+
+### Display Results as DataFrame
+
+Convert search results to a pandas DataFrame:
+
+```python
+pd.DataFrame(list(res['hits']['hits']))
+```
+
+This will show a table with columns:
+- `_index`: The index name
+- `_type`: The document type (deprecated)
+- `_id`: Unique document ID
+- `_score`: Relevance score
+- `_source`: The actual document data
+
+## Key ElasticSearch Concepts
+
+1. **Index**: Similar to a database in RDBMS
+2. **Document**: Similar to a row in a table
+3. **Field**: Similar to a column in a table
+4. **Mapping**: Similar to a schema definition
+5. **Query DSL**: ElasticSearch's query language
+
+## Common Operations Summary
+
+- **Create Index**: `es.indices.create(index='name', ignore=400)`
+- **Delete Index**: `es.indices.delete(index='name', ignore=[400, 404])`
+- **List Indices**: `es.indices.get_alias().keys()`
+- **Add Document**: `es.index(index='name', body=document)`
+- **Search Documents**: `es.search(index='name', body=query)`
+- **Check Connection**: `es.ping()`
+
+## Error Handling
+
+Always use the `ignore` parameter to handle common HTTP errors:
+- `400`: Bad Request (e.g., index already exists)
+- `404`: Not Found (e.g., index doesn't exist)
+
+This tutorial covers the basic CRUD operations in ElasticSearch using Python, providing a foundation for more complex search and analytics operations.

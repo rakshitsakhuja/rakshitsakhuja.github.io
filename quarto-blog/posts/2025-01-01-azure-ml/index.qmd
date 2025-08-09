@@ -1,0 +1,39 @@
+---
+title: "Azure Machine Learning"
+description: "Azure Machine Learning and its components"
+author: "Rakshit Sakhuja"
+date: "2025-01-01"
+categories: [Azure, Machine Learning, Cloud]
+image: "AzureChoosingPipeline.jpg"
+---
+
+> youtube: https://www.youtube.com/watch?v=uIq-aZsiKog
+
+::: {.callout-note}
+## Related Links
+- [Azure Cognitive Services Personalizer](https://docs.microsoft.com/en-in/azure/cognitive-services/personalizer/)
+- [Real-time Recommendation Architecture](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/ai/real-time-recommendation)
+:::
+
+## Compute Resource
+
+A **compute resource** can be any service in Azure that provides you with computing power, such as VMs, managed clusters of VMs (Azure Batch, Azure Databricks, and so on), container execution engines (Azure Kubernetes Services, Azure Container Instance, Azure Functions, Azure IoT Edge, and so on), or hybrid compute services such as App Service. This service is usually used for experimentation or is managed from an ML infrastructure service.
+
+## ML infrastructure service
+
+An **ML infrastructure service** helps you implement, orchestrate, automate, and optimize your ML training, pipelines, and deployments. Using such a service, you would usually implement your own preprocessing and ML algorithms using your own frameworks. However, the service would support you with infrastructure for the training, optimization and deployment process. **Azure Machine Learning** is a service in Azure that falls into this category and will be the service that we use throughout this book.
+
+## ML modeling service
+
+Finally, an **ML modeling service** is a service that helps you to create or use ML models without writing your own code. Services such as Cognitive Services, Azure Automated Machine Learning, Azure Machine Learning designer, and Custom Vision can be found in this category.
+
+## Choosing a ML Service
+
+![Azure ML Pipeline Selection](AzureChoosingPipeline.jpg)
+
+In Azure, you have various choices to build your end-to-end ML pipelines for training, optimizing, and deploying custom ML models:
+
+* Build your own tools
+* Use open source tools, such as Azure Databricks with ML Flow
+* Use a GUI tool, such as Azure Machine Learning designer
+* Use Azure Machine Learning

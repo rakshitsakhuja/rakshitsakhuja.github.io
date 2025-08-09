@@ -1,0 +1,24 @@
+---
+title: "About"
+---
+
+## About Me
+
+I'm Rakshit Sakhuja, passionate about Machine Learning and AI technologies.
+
+## About This Blog
+
+This blog is powered by [Quarto](https://quarto.org/) and contains my notes, experiments, and insights on:
+
+- Machine Learning
+- Deep Learning  
+- Azure ML Services
+- Data Science
+- AI Research
+
+One of the beautiful things about Machine Learning is you are not going to remember a lot of details if you are not practicing it - hence this blog serves as my external memory!
+
+## Connect
+
+- GitHub: [@rakshitsakhuja](https://github.com/rakshitsakhuja)
+- Twitter: [@rakki_99](https://twitter.com/rakki_99)

@@ -1,0 +1,16 @@
+---
+title: "AI/ML Notes"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+Welcome to my AI/ML blog! This is a collection of my notes and insights on Machine Learning, Deep Learning, and related topics.
+
+## Latest Posts
