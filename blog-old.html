@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <title>Rakshit Sakhuja | Blog</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="keywords" content="Rakshit Sakhuja, Data Science Blog, Machine Learning, AI, LLMs, Python, Tech Blog">
+  <meta name="description" content="Technical blog by Rakshit Sakhuja covering AI/ML, Data Science, LLMs, and technology insights.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link id='favicon' rel="shortcut icon" href="assets/images/favicon.png" type="image/x-png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    .header {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a202c;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: #4a5568;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: #2b6cb0;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .social-links a {
+      color: #718096;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+    }
+    
+    .social-links a:hover {
+      color: #2b6cb0;
+    }
+    
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      background: white;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1a202c;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      color: #4a5568;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    
+    .stat {
+      text-align: center;
+    }
+    
+    .stat-number {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2b6cb0;
+    }
+    
+    .stat-label {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+    
+    /* Main Content */
+    .main {
+      padding: 3rem 0;
+    }
+    
+    .section {
+      margin-bottom: 4rem;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1a202c;
+    }
+    
+    .view-all {
+      color: #2b6cb0;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .view-all:hover {
+      text-decoration: underline;
+    }
+    
+    /* Blog Cards */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    .blog-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .blog-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+      padding: 1.5rem 1.5rem 1rem;
+    }
+    
+    .card-category {
+      display: inline-block;
+      background: #ebf4ff;
+      color: #2b6cb0;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    
+    .card-excerpt {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    
+    .card-footer {
+      padding: 0 1.5rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-date {
+      color: #718096;
+      font-size: 0.85rem;
+    }
+    
+    .card-read-time {
+      color: #718096;
+      font-size: 0.85rem;
+    }
+    
+    /* Categories */
+    .categories {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .category-tag {
+      background: white;
+      border: 1px solid #e2e8f0;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      color: #4a5568;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .category-tag:hover, .category-tag.active {
+      background: #2b6cb0;
+      color: white;
+      border-color: #2b6cb0;
+      text-decoration: none;
+    }
+    
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(135deg, #2b6cb0 0%, #2c5282 100%);
+      color: white;
+      padding: 3rem;
+      border-radius: 12px;
+      text-align: center;
+      margin: 3rem 0;
+    }
+    
+    .newsletter h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .newsletter p {
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 1rem;
+    }
+    
+    .newsletter input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    
+    .newsletter button {
+      background: white;
+      color: #2b6cb0;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .newsletter button:hover {
+      background: #f7fafc;
+    }
+    
+    /* Footer */
+    .footer {
+      background: #1a202c;
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+    
+    .footer p {
+      margin-bottom: 1rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">Rakshit Sakhuja</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="education.html">Education</a></li>
+          <li><a href="blog.html" style="color: #2b6cb0;">Blog</a></li>
+        </ul>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/rakshitsakhuja" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/rakshitsakhuja" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://x.com/rakki_99" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>AI/ML Notes</h1>
+      <p>"One of the beautiful things about Machine Learning is you are not going to remember lot of details if you are not practicing it." - Exploring practical implementations through Jupyter notebooks, code examples, and real-world applications.</p>
+      
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-number">5+</span>
+          <span class="stat-label">Notebooks</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">3+</span>
+          <span class="stat-label">Articles</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">FastPages</span>
+          <span class="stat-label">Platform</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+      <!-- Categories -->
+      <div class="categories">
+        <a href="https://rakshitsakhuja.github.io/blogs/" class="category-tag active">All Posts</a>
+        <a href="https://rakshitsakhuja.github.io/blogs/categories/#elasticsearch" class="category-tag">ElasticSearch</a>
+        <a href="https://rakshitsakhuja.github.io/blogs/categories/#markdown" class="category-tag">Tutorials</a>
+        <a href="https://rakshitsakhuja.github.io/blogs/categories/#jupyter" class="category-tag">Jupyter Notebooks</a>
+        <a href="https://rakshitsakhuja.github.io/blogs/categories/#azure" class="category-tag">Azure ML</a>
+        <a href="https://rakshitsakhuja.github.io/blogs/categories/#fastpages" class="category-tag">FastPages</a>
+      </div>
+
+      <!-- Featured Posts -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Featured Articles</h2>
+          <a href="https://rakshitsakhuja.github.io/blogs/" target="_blank" class="view-all">
+            Visit Blog <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        
+        <div class="blog-grid">
+          <article class="blog-card" onclick="window.open('https://rakshitsakhuja.github.io/blogs/elasticsearch/2020/05/09/ElasticSearch.html', '_blank')" style="cursor: pointer;">
+            <div class="card-header">
+              <span class="card-category">ElasticSearch</span>
+              <h3 class="card-title">ElasticSearch - Create and Delete Operations in Python</h3>
+              <p class="card-excerpt">A comprehensive Jupyter notebook guide covering ElasticSearch CRUD operations with Python. Includes practical examples of connecting to ElasticSearch, creating indices, and performing data operations.</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">May 9, 2020</span>
+              <span class="card-read-time">Jupyter Notebook</span>
+            </div>
+          </article>
+
+          <article class="blog-card" onclick="window.open('https://rakshitsakhuja.github.io/blogs/jupyter/2020/02/20/test.html', '_blank')" style="cursor: pointer;">
+            <div class="card-header">
+              <span class="card-category">FastPages</span>
+              <h3 class="card-title">Fastpages Notebook Blog Post</h3>
+              <p class="card-excerpt">Demonstration of FastPages capabilities with Jupyter notebooks. Learn how to create interactive blog posts with code, visualizations, and markdown content.</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">Feb 20, 2020</span>
+              <span class="card-read-time">Jupyter Notebook</span>
+            </div>
+          </article>
+
+          <article class="blog-card" onclick="window.open('https://rakshitsakhuja.github.io/blogs/markdown/2020/01/14/test-markdown-post.html', '_blank')" style="cursor: pointer;">
+            <div class="card-header">
+              <span class="card-category">Markdown</span>
+              <h3 class="card-title">An Example Markdown Post</h3>
+              <p class="card-excerpt">A minimal example of using markdown with FastPages. Covers basic formatting, code blocks, tables, and advanced markdown features for technical blogging.</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">Jan 14, 2020</span>
+              <span class="card-read-time">Tutorial</span>
+            </div>
+          </article>
+
+          <article class="blog-card" onclick="window.open('https://rakshitsakhuja.github.io/blogs/azure/machine-learning.html', '_blank')" style="cursor: pointer;">
+            <div class="card-header">
+              <span class="card-category">Azure ML</span>
+              <h3 class="card-title">Azure Machine Learning Pipeline</h3>
+              <p class="card-excerpt">Explore Azure Machine Learning capabilities through practical examples. Learn about ML pipelines, model training, and deployment strategies in the Azure ecosystem.</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">Notebook</span>
+              <span class="card-read-time">Azure ML</span>
+            </div>
+          </article>
+
+          <article class="blog-card" style="opacity: 0.7;">
+            <div class="card-header">
+              <span class="card-category">Recommender Systems</span>
+              <h3 class="card-title">Recommender Blogs From Kaggle</h3>
+              <p class="card-excerpt">Collection of insights and implementations related to recommender systems. Covers collaborative filtering, content-based approaches, and hybrid recommendation techniques.</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">Jan 28, 2020</span>
+              <span class="card-read-time">Word Document</span>
+            </div>
+          </article>
+
+          <article class="blog-card" style="opacity: 0.5; position: relative;" title="Coming Soon - Based on your current work with DSPy and prompt optimization">
+            <div class="card-header">
+              <span class="card-category">LLMs & GenAI</span>
+              <h3 class="card-title">DSPy: Systematic Prompt Optimization</h3>
+              <p class="card-excerpt">Advanced techniques for optimizing LLM prompts using DSPy framework. Learn data-driven approaches to improve prompt effectiveness and consistency.</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">Coming Soon</span>
+              <span class="card-read-time">Based on your current work</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Newsletter -->
+      <section class="newsletter">
+        <h3>Explore More Content</h3>
+        <p>Check out my complete collection of AI/ML notebooks, tutorials, and technical insights on the main blog site.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="https://rakshitsakhuja.github.io/blogs/" target="_blank" style="background: white; color: #2b6cb0; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600;">Visit Full Blog</a>
+          <a href="https://rakshitsakhuja.github.io/blogs/search.html" target="_blank" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600;">Search Posts</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Rakshit Sakhuja. All rights reserved.</p>
+      <p>Senior Data Scientist | AI/ML Specialist | Singapore</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple category filtering
+    document.querySelectorAll('.category-tag').forEach(tag => {
+      tag.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        // Add filtering logic here if needed
+      });
+    });
+
+    // Analytics for clicks
+    document.querySelectorAll('.blog-card[onclick]').forEach(card => {
+      card.addEventListener('click', function() {
+        console.log('Blog card clicked:', this.querySelector('.card-title').textContent);
+      });
+    });
+  </script>
+</body>
+</html>

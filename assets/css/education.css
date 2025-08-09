@@ -48,6 +48,7 @@ html[data-theme = 'dark']
 .s2
 {
     overflow-x: hidden;
+    padding-top: 120px;
 }
 
 .s2 .head{

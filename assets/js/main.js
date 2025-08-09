@@ -44,7 +44,7 @@ let header = $(`
         <li><a class="white-text" href="research.html">Research</a></li>
         <li><a class="white-text" href="education.html">Education</a></li>
         <li><a class="white-text" href="skill.html">Skills</a></li>
-        <li><a class="white-text" href="https://rakshitsakhuja.github.io/blogs/" target="_blank">Blog</a></li>
+        <li><a class="white-text" href="blog.html">Blog</a></li>
         <!--TOGGLE FOR LIGHT/DARK MODE-->
         <li>
           <label for="switch-1" class="theme-switch">
@@ -73,7 +73,7 @@ let header = $(`
 <li><a href="research.html">Research</a></li>
 <li><a href="education.html">Education</a></li>
 <li><a href="skill.html">Skills</a></li>
-<li><a href="https://rakshitsakhuja.github.io/blogs/" target="_blank">Blog</a></li>
+<li><a href="blog.html">Blog</a></li>
 
 <!--TOGGLE FOR LIGHT/DARK MODE-->
         <li>

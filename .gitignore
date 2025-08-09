@@ -1,2 +1,31 @@
 vscode/
 .idea/
+blogs/
+
+# Quarto generated files
+_site/
+.quarto/
+
+# Generated files that should be rebuilt
+site_libs/
+search.json
+listings.json
+sitemap.xml
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node modules (if using npm)
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+

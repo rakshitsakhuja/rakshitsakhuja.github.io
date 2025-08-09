@@ -48,6 +48,7 @@ html[data-theme="light"] {
 
 .main {
   width: 100%;
+  padding-top: 140px;
   padding-left: 4rem;
   padding-right: 4rem;
 }
@@ -181,7 +182,8 @@ ul ol{
   font-weight: bold;
   color: #000 !important;
   margin: 0.3em 0;
-  margin-top: 3rem;
+  margin-top: 0 !important;
+  margin-bottom: 2rem !important;
   text-align: center;
   background: none;
   -webkit-text-fill-color: #000 !important;

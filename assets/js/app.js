@@ -16,11 +16,12 @@ let header = $(`
 <div class="collapse navbar-collapse " id="navbarSupportedContent">
   <ul class="navbar-nav ml-auto" id = "navbar-content">
    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+   <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
    <li class="nav-item"><a class="nav-link" href="experience.html">Experience</a></li>
    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
    <!-- <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>-->
    <li class="nav-item"><a class="nav-link" href="education.html">Education</a></li>
-   <li class="nav-item"><a class="nav-link" href="https://rakshitsakhuja.github.io/blogs/" target="_blank">Blog</a></li>
+   <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
    <div class="bike">
    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 0 650 400" preserveAspectRatio="xMinYMin meet"> 
      <rect/>
@@ -120,16 +121,7 @@ let footer = $(`
                 <circle cx="4" cy="4" r="2"></circle>
               </svg>
             </a>
-            <a class="social-button instagram" href="https://www.instagram.com/rakshitsakhuja/" target="_blank" onclick="console.log('Footer Instagram clicked'); window.open('https://www.instagram.com/rakshitsakhuja/', '_blank'); return false;" style="cursor: pointer; text-decoration: none;">
-             <!-- svg code for instagram icon -->
-              <svg class="instagram-icon-footer" x="0px" y="0px" viewBox="0 0 202.5 202.5"
-                 style="enable-background:new 0 0 202.5 202.5;">
-                 <circle id="littleCircle" class="st0" cx="101" cy="101.5" r="18.9" />
-                 <circle id="shutter" class="st0" cx="101" cy="101.5" r="8" />
-                 <circle id="lens" class="st0" cx="125.5" cy="78.6" r="2.9" />
-                 <path id="camera" class="st0" d="M79,60.5h44c10.5,0,19,8.5,19,19v44c0,10.5-8.5,19-19,19H79c-10.5,0-19-8.5-19-19v-44                                                                            C60,69,68.5,60.5,79,60.5z" />
-              </svg>
-            </a>      
+      
             <a class="social-button github" href="http://github.com/rakshitsakhuja/" target="_blank" onclick="console.log('Footer GitHub clicked'); window.open('http://github.com/rakshitsakhuja/', '_blank'); return false;" style="cursor: pointer; text-decoration: none;">
             <!-- SVG code for Github icon -->
             <svg class="github-icon-footer" width="45px" height="45px" viewBox="0 0 300 300">
