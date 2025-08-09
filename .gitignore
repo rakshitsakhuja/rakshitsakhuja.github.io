@@ -2,9 +2,9 @@ vscode/
 .idea/
 blogs/
 
-# Quarto generated files
-_site/
-.quarto/
+# Quarto generated files (exclude from root, but allow quarto-blog/_site/)
+/.quarto/
+/quarto-blog/.quarto/
 
 # Generated files that should be rebuilt
 site_libs/
