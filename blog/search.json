@@ -1,0 +1,268 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I’m Rakshit Sakhuja, passionate about Machine Learning and AI technologies."
+  },
+  {
+    "objectID": "about.html#about-me",
+    "href": "about.html#about-me",
+    "title": "About",
+    "section": "",
+    "text": "I’m Rakshit Sakhuja, passionate about Machine Learning and AI technologies."
+  },
+  {
+    "objectID": "about.html#about-this-blog",
+    "href": "about.html#about-this-blog",
+    "title": "About",
+    "section": "About This Blog",
+    "text": "About This Blog\nThis blog is powered by Quarto and contains my notes, experiments, and insights on:\n\nMachine Learning\nDeep Learning\n\nAzure ML Services\nData Science\nAI Research\n\nOne of the beautiful things about Machine Learning is you are not going to remember a lot of details if you are not practicing it - hence this blog serves as my external memory!"
+  },
+  {
+    "objectID": "about.html#connect",
+    "href": "about.html#connect",
+    "title": "About",
+    "section": "Connect",
+    "text": "Connect\n\nGitHub: @rakshitsakhuja\nTwitter: @rakki_99"
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html",
+    "href": "posts/2020-01-14-markdown-example/index.html",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "Quarto requires blog post files to be organized in folders or named with dates. This post demonstrates basic markdown formatting.\n\n\n\nYou can use italics, bold, code font text, and create links. Here’s a footnote 1. Here’s a horizontal rule:\n\n\n\n\nHere’s a list:\n\nitem 1\nitem 2\n\nAnd a numbered list:\n\nitem 1\nitem 2\n\n\n\n\n\nThis is a quotation\n\n\n\n\n\n\n\nNote\n\n\n\nYou can include note callouts in Quarto\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can include tip callouts too\n\n\n\n\n\n\n\n\nQuarto Logo\n\n\n\n\n\nYou can format text and code per usual\nGeneral preformatted text:\n# Do a thing\ndo_thing()\nPython code and output:\n# Prints '2'\nprint(1+1)\nFormatting text as shell commands:\necho \"hello world\"\n./some_script.sh --option \"value\"\nwget https://example.com/cat_photo1.png\nFormatting text as YAML:\nkey: value\n- another_key: \"another value\"\n\n\n\n\n\n\nColumn 1\nColumn 2\n\n\n\n\nA thing\nAnother thing"
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#basic-setup",
+    "href": "posts/2020-01-14-markdown-example/index.html#basic-setup",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "Quarto requires blog post files to be organized in folders or named with dates. This post demonstrates basic markdown formatting."
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#basic-formatting",
+    "href": "posts/2020-01-14-markdown-example/index.html#basic-formatting",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "You can use italics, bold, code font text, and create links. Here’s a footnote 1. Here’s a horizontal rule:"
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#lists",
+    "href": "posts/2020-01-14-markdown-example/index.html#lists",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "Here’s a list:\n\nitem 1\nitem 2\n\nAnd a numbered list:\n\nitem 1\nitem 2"
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#boxes-and-stuff",
+    "href": "posts/2020-01-14-markdown-example/index.html#boxes-and-stuff",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "This is a quotation\n\n\n\n\n\n\n\nNote\n\n\n\nYou can include note callouts in Quarto\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can include tip callouts too"
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#images",
+    "href": "posts/2020-01-14-markdown-example/index.html#images",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "Quarto Logo"
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#code",
+    "href": "posts/2020-01-14-markdown-example/index.html#code",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "You can format text and code per usual\nGeneral preformatted text:\n# Do a thing\ndo_thing()\nPython code and output:\n# Prints '2'\nprint(1+1)\nFormatting text as shell commands:\necho \"hello world\"\n./some_script.sh --option \"value\"\nwget https://example.com/cat_photo1.png\nFormatting text as YAML:\nkey: value\n- another_key: \"another value\""
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#tables",
+    "href": "posts/2020-01-14-markdown-example/index.html#tables",
+    "title": "An Example Markdown Post",
+    "section": "",
+    "text": "Column 1\nColumn 2\n\n\n\n\nA thing\nAnother thing"
+  },
+  {
+    "objectID": "posts/2020-01-14-markdown-example/index.html#footnotes",
+    "href": "posts/2020-01-14-markdown-example/index.html#footnotes",
+    "title": "An Example Markdown Post",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThis is the footnote.↩︎"
+  },
+  {
+    "objectID": "posts/2025-01-01-azure-ml/index.html",
+    "href": "posts/2025-01-01-azure-ml/index.html",
+    "title": "Azure Machine Learning",
+    "section": "",
+    "text": "youtube: https://www.youtube.com/watch?v=uIq-aZsiKog"
+  },
+  {
+    "objectID": "posts/2025-01-01-azure-ml/index.html#compute-resource",
+    "href": "posts/2025-01-01-azure-ml/index.html#compute-resource",
+    "title": "Azure Machine Learning",
+    "section": "Compute Resource",
+    "text": "Compute Resource\nA compute resource can be any service in Azure that provides you with computing power, such as VMs, managed clusters of VMs (Azure Batch, Azure Databricks, and so on), container execution engines (Azure Kubernetes Services, Azure Container Instance, Azure Functions, Azure IoT Edge, and so on), or hybrid compute services such as App Service. This service is usually used for experimentation or is managed from an ML infrastructure service."
+  },
+  {
+    "objectID": "posts/2025-01-01-azure-ml/index.html#ml-infrastructure-service",
+    "href": "posts/2025-01-01-azure-ml/index.html#ml-infrastructure-service",
+    "title": "Azure Machine Learning",
+    "section": "ML infrastructure service",
+    "text": "ML infrastructure service\nAn ML infrastructure service helps you implement, orchestrate, automate, and optimize your ML training, pipelines, and deployments. Using such a service, you would usually implement your own preprocessing and ML algorithms using your own frameworks. However, the service would support you with infrastructure for the training, optimization and deployment process. Azure Machine Learning is a service in Azure that falls into this category and will be the service that we use throughout this book."
+  },
+  {
+    "objectID": "posts/2025-01-01-azure-ml/index.html#ml-modeling-service",
+    "href": "posts/2025-01-01-azure-ml/index.html#ml-modeling-service",
+    "title": "Azure Machine Learning",
+    "section": "ML modeling service",
+    "text": "ML modeling service\nFinally, an ML modeling service is a service that helps you to create or use ML models without writing your own code. Services such as Cognitive Services, Azure Automated Machine Learning, Azure Machine Learning designer, and Custom Vision can be found in this category."
+  },
+  {
+    "objectID": "posts/2025-01-01-azure-ml/index.html#choosing-a-ml-service",
+    "href": "posts/2025-01-01-azure-ml/index.html#choosing-a-ml-service",
+    "title": "Azure Machine Learning",
+    "section": "Choosing a ML Service",
+    "text": "Choosing a ML Service\n\n\n\nAzure ML Pipeline Selection\n\n\nIn Azure, you have various choices to build your end-to-end ML pipelines for training, optimizing, and deploying custom ML models:\n\nBuild your own tools\nUse open source tools, such as Azure Databricks with ML Flow\nUse a GUI tool, such as Azure Machine Learning designer\nUse Azure Machine Learning"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "AI/ML Notes",
+    "section": "",
+    "text": "Welcome to my AI/ML blog! This is a collection of my notes and insights on Machine Learning, Deep Learning, and related topics."
+  },
+  {
+    "objectID": "index.html#latest-posts",
+    "href": "index.html#latest-posts",
+    "title": "AI/ML Notes",
+    "section": "Latest Posts",
+    "text": "Latest Posts"
+  },
+  {
+    "objectID": "posts/2020-01-28-recommender-systems/index.html",
+    "href": "posts/2020-01-28-recommender-systems/index.html",
+    "title": "Recommender Systems - Blogs from Kaggle",
+    "section": "",
+    "text": "https://github.com/grahamjenson/list_of_recommender_systems\nhttps://www.pinterest.de/dataliftoff/recommender-systems/python-libraries/\nhttps://www.kaggle.com/gunnvant/building-content-recommender-tutorial"
+  },
+  {
+    "objectID": "posts/2020-01-28-recommender-systems/index.html#links",
+    "href": "posts/2020-01-28-recommender-systems/index.html#links",
+    "title": "Recommender Systems - Blogs from Kaggle",
+    "section": "",
+    "text": "https://github.com/grahamjenson/list_of_recommender_systems\nhttps://www.pinterest.de/dataliftoff/recommender-systems/python-libraries/\nhttps://www.kaggle.com/gunnvant/building-content-recommender-tutorial"
+  },
+  {
+    "objectID": "posts/2020-01-28-recommender-systems/index.html#key-concepts",
+    "href": "posts/2020-01-28-recommender-systems/index.html#key-concepts",
+    "title": "Recommender Systems - Blogs from Kaggle",
+    "section": "Key Concepts",
+    "text": "Key Concepts\n\nRecommendation engines used by the official ted page, will be a degrees of magnitude more sophisticated than what I can demonstrate here and would also involve use of some sort of historical user-item interaction data.\nGenerate recommendations just using content when you don’t have any user-item interaction data\nWhen you are starting out new and still want to provide the consumers of your content relevant contextual recommendations\nRecommend talks based on the similarity of their content, the first thing I will have to do is to, create a representation of the transcripts that are amenable to comparison. One way of doing this is to create a tfidf vector for each transcript.\n\n\nCore Functions:\n\nTfidfVectorizer\ncosine_similarity(matrix)\nget_similar_articles\n\n\n\nAdditional Improvements:\n\ntf-idf with unigrams, you can try using bigrams and see if you get better results.\nTry using pre-trained word vectors such as word2vec to create vector representation of just the Titles and try to find similarity using cosine distance"
+  },
+  {
+    "objectID": "posts/2020-01-28-recommender-systems/index.html#amazon-reviews-recommender-system",
+    "href": "posts/2020-01-28-recommender-systems/index.html#amazon-reviews-recommender-system",
+    "title": "Recommender Systems - Blogs from Kaggle",
+    "section": "Amazon Reviews Recommender System",
+    "text": "Amazon Reviews Recommender System\nhttps://www.kaggle.com/saurav9786/recommender-system-using-amazon-reviews\n\nAmazon uses currently item-item collaborative filtering, which scales to massive datasets and produces high quality recommendation system in the real time.\n\n\nThis system is a kind of information filtering system which seeks to predict the “rating” or preferences which user is interested in.\n\n\nTypes of Recommendation Systems\nThere are mainly 6 types of the recommendations systems:\n\nPopularity based systems: Works by recommending items viewed and purchased by most people and are rated high. It is not a personalized recommendation.\nClassification model based: Works by understanding the features of the user and applying the classification algorithm to decide whether the user is interested or not in the product.\nContent based recommendations: Based on the information on the contents of the item rather than on the user opinions. The main idea is if the user likes an item then he or she will like the “other” similar item.\nCollaborative Filtering: Based on assumption that people like things similar to other things they like, and things that are liked by other people with similar taste. It is mainly of two types: a) User-User b) Item-Item\nHybrid Approaches: This system approach is to combine collaborative filtering, content-based filtering, and other approaches.\nAssociation rule mining: Association rules capture the relationships between items based on their patterns of co-occurrence across transactions.\n\n\n\nAttribute Information:\n\nuserId: Every user identified with a unique id\nproductId: Every product identified with a unique id\nRating: Rating of the corresponding product by the corresponding user\ntimestamp: Time of the rating (ignore this column for this exercise)\n\n\n\nImplementation Steps:\n\nPopularity based\nCheck the distribution of the rating\nOn the basis of Rating.count()\n\nCF is based on the idea that the best recommendations come from people who have similar tastes. In other words, it uses historical item ratings of like-minded people to predict how someone would rate an item. Collaborative filtering has two sub-categories that are generally called memory based and model-based approaches.\n\nMemory-based collaborative filtering system\nfrom surprise import KNNWithMeans\nParameter: user_based true/false to switch between user-based or item-based collaborative filtering\n\n\nModel-based collaborative filtering system\nThe advantage of these methods is that they are able to recommend a larger number of items to a larger number of users, compared to other methods like memory based approach. They have large coverage, even when working with large sparse matrices.\nnew_df1.pivot_table\nfrom sklearn.decomposition import TruncatedSVD\nnp.corrcoef(decomposed_matrix)"
+  },
+  {
+    "objectID": "posts/2020-01-28-recommender-systems/index.html#tutorial-recommendation-systems",
+    "href": "posts/2020-01-28-recommender-systems/index.html#tutorial-recommendation-systems",
+    "title": "Recommender Systems - Blogs from Kaggle",
+    "section": "Tutorial: Recommendation Systems",
+    "text": "Tutorial: Recommendation Systems\nhttps://www.kaggle.com/kanncaa1/recommendation-systems-tutorial\n\nUser Based Collaborative Filtering\n\nCollaborative filtering is making recommend according to combination of your experience and experiences of other people.\nFirst we need to make user vs item matrix.\nEach row is users and each columns are items like movie, product or websites\nSecondly, computes similarity scores between users.\nEach row is users and each row is vector.\nCompute similarity of these rows (users).\nThirdly, find users who are similar to you based on past behaviours\nFinally, it suggests that you are not experienced before.\n\n\nExample:\n\nThink that there are two people\nFirst one watched 2 movies that are lord of the rings and hobbit\nSecond one watched only lord of the rings movie\nUser based collaborative filtering computes similarity of these two people and sees both are watched a lord of the rings.\nThen it recommends hobbit movie to second one\n\n\n\nProblems with User Based Collaborative Filtering:\n\nIn this system, each row of matrix is user. Therefore, comparing and finding similarity between of them is computationally hard and spend too much computational power.\nAlso, habits of people can be changed. Therefore making correct and useful recommendation can be hard in time.\n\n\n\n\nItem Based Collaborative Filtering\n\nIn this system, instead of finding relationship between users, used items like movies or stuffs are compared with each others.\nIn user based recommendation systems, habits of users can be changed. This situation makes hard to recommendation. However, in item based recommendation systems, movies or stuffs does not change. Therefore recommendation is easier.\nOn the other hand, there are almost 7 billion people all over the world. Comparing people increases the computational power. However, if items are compared, computational power is less.\n\n\nImplementation:\n[\"userId\",\"movieId\",\"rating\"]\ndata.pivot_table(index = [\"userId\"],columns = [\"title\"],values = \"rating\")\nmovie_watched = pivot_table[\"Bad Boys (1995)\"]   \nsimilarity_with_other_movies = pivot_table.corrwith(movie_watched)  # find correlation\nsimilarity_with_other_movies = similarity_with_other_movies.sort_values(ascending=False)"
+  },
+  {
+    "objectID": "posts/2020-01-28-recommender-systems/index.html#goodreads-collaborative-recommender-system",
+    "href": "posts/2020-01-28-recommender-systems/index.html#goodreads-collaborative-recommender-system",
+    "title": "Recommender Systems - Blogs from Kaggle",
+    "section": "Goodreads Collaborative Recommender System",
+    "text": "Goodreads Collaborative Recommender System\nhttps://www.kaggle.com/sriharshavogeti/collaborative-recommender-system-on-goodreads\n\nNaive item-similarity based recommender system\nDataset structure: | book_id | user_id | rating | |————-|————-|————|\nCreate dictionary corresponding to each book id with its mapping and its key value as user_ids:rating\ndictVectorizer = DictVectorizer(sparse=True)\nvector = dictVectorizer.fit_transform(listOfDictonaries)\ncosine_similarity(vector)\nnp.argsort(pairwiseSimilarity[row])[-7:-2][::-1]"
+  },
+  {
+    "objectID": "posts/2020-01-28-recommender-systems/index.html#deep-recommender-systems",
+    "href": "posts/2020-01-28-recommender-systems/index.html#deep-recommender-systems",
+    "title": "Recommender Systems - Blogs from Kaggle",
+    "section": "Deep Recommender Systems",
+    "text": "Deep Recommender Systems\nhttps://www.kaggle.com/morrisb/how-to-recommend-anything-deep-recommender\n\n11. Recommendation Engines\n\n11.1. Mean Rating\n11.2. Weighted Mean Rating\n11.3. Cosine User-User Similarity\n11.4. Cosine TFIDF Movie Description Similarity\n11.5. Matrix Factorisation With Keras And Gradient Descent\n11.6. Deep Learning With Keras\n11.7. Deep Hybrid System With Metadata And Keras\n\ndf_train.pivot_table(index='User', columns='Movie', values='Rating')"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html",
+    "href": "posts/2025-08-08-elasticsearch/index.html",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "",
+    "text": "First, install the ElasticSearch Python client:\n!pip install elasticsearch"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#installation-and-setup",
+    "href": "posts/2025-08-08-elasticsearch/index.html#installation-and-setup",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "",
+    "text": "First, install the ElasticSearch Python client:\n!pip install elasticsearch"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#import-required-libraries",
+    "href": "posts/2025-08-08-elasticsearch/index.html#import-required-libraries",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Import Required Libraries",
+    "text": "Import Required Libraries\ntry:\n    import os\n    import sys\n    import elasticsearch\n    from elasticsearch import Elasticsearch\n    import pandas as pd\n    print(\"All Modules Loaded ! \")\nexcept Exception as e:\n    print(\"Some Modules are Missing {}\".format(e))"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#connecting-to-elasticsearch",
+    "href": "posts/2025-08-08-elasticsearch/index.html#connecting-to-elasticsearch",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Connecting to ElasticSearch",
+    "text": "Connecting to ElasticSearch\ndef connect_elasticsearch():\n    es = None\n    es = Elasticsearch([{'host': 'localhost', 'port': 9200}])\n    if es.ping():\n        print('Connected ')\n    else:\n        print('Please Check!..not connected!')\n    return es\n\nes = connect_elasticsearch()"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#creating-indices",
+    "href": "posts/2025-08-08-elasticsearch/index.html#creating-indices",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Creating Indices",
+    "text": "Creating Indices\nCreate new indices in ElasticSearch:\nes.indices.create(index='test-index', ignore=400)\nes.indices.create(index='test-index1', ignore=400)\nThe ignore=400 parameter ignores the error if the index already exists."
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#listing-all-indices",
+    "href": "posts/2025-08-08-elasticsearch/index.html#listing-all-indices",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Listing All Indices",
+    "text": "Listing All Indices\n\nMethod 1: Get all indices including system indices\nres = es.indices.get_alias(\"*\")\nfor Name in res:\n    print(Name)\n\n\nMethod 2: Get indices as dict keys\nindices = es.indices.get_alias().keys()\nfor Name in indices:\n    print(Name)\n\n\nMethod 3: Filter specific indices\nfor Name in [i for i in es.indices.get_alias().keys() if i in ['test-index1','test-index']]:\n    print(\"Deleted {} \".format(Name))\n    es.indices.delete(index=Name, ignore=[400, 404])"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#working-with-documents",
+    "href": "posts/2025-08-08-elasticsearch/index.html#working-with-documents",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Working with Documents",
+    "text": "Working with Documents\n\nSample Data\nCreate sample documents to index:\ne1 = {\n    \"first_name\": \"Soumil\",\n    \"last_name\": \"Shah\",\n    \"age\": 24,\n    \"about\": \"Full stack Software Developers \",\n    \"interests\": ['Youtube','music'],\n}\n\ne2 = {\n    \"first_name\": \"nitin\",\n    \"last_name\": \"Shah\",\n    \"age\": 58,\n    \"about\": \"Soumil father \",\n    \"interests\": ['Stock','Relax'],\n}\n\n\nCreating Documents\nCreate an index and add documents:\nes.indices.create(index='person', ignore=400)\n\nres1 = es.index(index='person', doc_type='people', body=e1)\nres2 = es.index(index='person', doc_type='people', body=e2)\n\nprint(\"RES1 : {}\".format(res1))\nprint(\"RES2 : {}\".format(res2))\nNote: The doc_type parameter is deprecated in newer versions of ElasticSearch. Use typeless endpoints instead."
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#searching-documents",
+    "href": "posts/2025-08-08-elasticsearch/index.html#searching-documents",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Searching Documents",
+    "text": "Searching Documents\n\nMatch All Query\nSearch for all documents in an index:\nquery = {\"query\": {\n        \"match_all\": {}\n    }}\n\nres = es.search(index=\"person\", body=query, size=1000)\n\n\nDisplay Results as DataFrame\nConvert search results to a pandas DataFrame:\npd.DataFrame(list(res['hits']['hits']))\nThis will show a table with columns: - _index: The index name - _type: The document type (deprecated) - _id: Unique document ID - _score: Relevance score - _source: The actual document data"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#key-elasticsearch-concepts",
+    "href": "posts/2025-08-08-elasticsearch/index.html#key-elasticsearch-concepts",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Key ElasticSearch Concepts",
+    "text": "Key ElasticSearch Concepts\n\nIndex: Similar to a database in RDBMS\nDocument: Similar to a row in a table\nField: Similar to a column in a table\nMapping: Similar to a schema definition\nQuery DSL: ElasticSearch’s query language"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#common-operations-summary",
+    "href": "posts/2025-08-08-elasticsearch/index.html#common-operations-summary",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Common Operations Summary",
+    "text": "Common Operations Summary\n\nCreate Index: es.indices.create(index='name', ignore=400)\nDelete Index: es.indices.delete(index='name', ignore=[400, 404])\nList Indices: es.indices.get_alias().keys()\nAdd Document: es.index(index='name', body=document)\nSearch Documents: es.search(index='name', body=query)\nCheck Connection: es.ping()"
+  },
+  {
+    "objectID": "posts/2025-08-08-elasticsearch/index.html#error-handling",
+    "href": "posts/2025-08-08-elasticsearch/index.html#error-handling",
+    "title": "ElasticSearch - Create and Delete operations in Python",
+    "section": "Error Handling",
+    "text": "Error Handling\nAlways use the ignore parameter to handle common HTTP errors: - 400: Bad Request (e.g., index already exists) - 404: Not Found (e.g., index doesn’t exist)\nThis tutorial covers the basic CRUD operations in ElasticSearch using Python, providing a foundation for more complex search and analytics operations."
+  }
+]
