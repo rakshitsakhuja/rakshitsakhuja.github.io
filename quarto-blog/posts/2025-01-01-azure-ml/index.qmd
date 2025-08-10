@@ -2,7 +2,7 @@
 title: "Azure Machine Learning"
 description: "Azure Machine Learning and its components"
 author: "Rakshit Sakhuja"
-date: "2025-01-01"
+date: "2023-12-01"
 categories: [Azure, Machine Learning, Cloud]
 image: "AzureChoosingPipeline.jpg"
 ---

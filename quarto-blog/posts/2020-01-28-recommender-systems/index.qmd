@@ -1,7 +1,7 @@
 ---
 title: "Recommender Systems - Blogs from Kaggle"
 author: "Rakshit Sakhuja"
-date: "2020-01-28"
+date: "2022-07-28"
 categories: [machine-learning, recommendation-systems, kaggle]
 description: "Collection of useful links and concepts about building recommendation systems from Kaggle tutorials"
 ---

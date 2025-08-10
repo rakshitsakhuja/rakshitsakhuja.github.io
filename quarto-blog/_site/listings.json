@@ -2,11 +2,10 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/2025-08-08-elasticsearch/index.html",
       "/posts/2025-01-09-quantization-distillation/index.html",
       "/posts/2025-01-01-azure-ml/index.html",
-      "/posts/2020-01-28-recommender-systems/index.html",
-      "/posts/2020-01-14-markdown-example/index.html"
+      "/posts/2025-08-08-elasticsearch/index.html",
+      "/posts/2020-01-28-recommender-systems/index.html"
     ]
   }
 ]

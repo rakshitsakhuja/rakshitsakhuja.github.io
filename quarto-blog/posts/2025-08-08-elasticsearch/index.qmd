@@ -1,7 +1,7 @@
 ---
 title: "ElasticSearch - Create and Delete operations in Python"
 author: "Rakshit Sakhuja"
-date: "2025-08-08"
+date: "2022-10-01"
 categories: [elasticsearch, python, database]
 description: "ElasticSearch and Python Implementation for CRUD operations"
 ---
