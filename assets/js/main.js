@@ -126,9 +126,7 @@ let footer = $(`
         <a href="#" class="dribbble sub-footer-icon">
               <i class="fab fa-dribbble"></i>
             </a>
-            <a href="#" class="instagram sub-footer-icon">
-            <i class="fab fa-instagram"></i>
-          </a>  -->
+  -->
         </div>
     </div>
     <div class="footer-right">

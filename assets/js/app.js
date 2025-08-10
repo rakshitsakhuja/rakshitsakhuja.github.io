@@ -99,11 +99,11 @@ let header = $(`
 </nav>`);
 
 let footer = $(`
-<footer class="footer">
+<footer class="footer" style="background: var(--bg-footer, #000); color: var(--text, #fff);">
   <div class="container p-4">
     <div class="row">
-      <div class="col-lg-6 col-md-12 mb-4 mb-md-0 justify-content-center">
-        <p class="tag" >"Develop a passion for learning. If you do, you will never cease to grow."
+      <div class="col-lg-8 col-md-12 mb-4 mb-md-0 justify-content-center">
+        <p class="tag" style="color: var(--text, #fff);">"Develop a passion for learning. If you do, you will never cease to grow."
         </p>
           <div class="rounded-social-buttons tag">
             <a class="social-button twitter" href="https://x.com/rakki_99" target="_blank" onclick="console.log('Footer Twitter clicked'); window.open('https://x.com/rakki_99', '_blank'); return false;" style="cursor: pointer; text-decoration: none;">
@@ -138,9 +138,9 @@ let footer = $(`
           </div>
       </div>
 
-        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <div class="col-lg-4 col-md-8 mb-4 mb-md-0 mx-auto">
           <div class="form-style-6">
-            <h6 class="display">Get in Touch</h6>
+            <h6 class="display" style="color: var(--text, #fff);">Get in Touch</h6>
             <form action="https://formsubmit.co/000e1fba7a850fa0bf160541c1cc4cbc"
             method="POST"
             
@@ -154,6 +154,14 @@ let footer = $(`
               <input type="submit" value="Send" />
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Copyright notice -->
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="text-center" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; color: var(--text-color, #ccc);">
+          <p style="margin: 0; font-size: 0.9rem;">© 2025 Rakshit Sakhuja • Singapore</p>
         </div>
       </div>
     </div>

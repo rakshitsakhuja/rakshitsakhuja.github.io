@@ -618,14 +618,14 @@ Rotate Transition in foote Soical Icon
   text-align: left;
   color: #fff;
   display: inline;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 200;
-  line-height: 18px;
+  line-height: 16px;
   border-bottom: 2px solid #26a69a;
 }
 
 form{
-  margin: 15px auto;
+  margin: 8px auto;
   color: #000;
 }
 
@@ -637,8 +637,8 @@ form{
 .form-style-6{
 	font: 95% Arial, Helvetica, sans-serif;
 	max-width: 400px;
-	margin: 10px auto;
-  padding: 16px;
+	margin: 5px auto;
+  padding: 8px;
   border-radius: 2px;
 }
 .form-style-6 h1{
@@ -670,9 +670,9 @@ form{
 	-moz-box-sizing: border-box;
 	width: 100%;
 	background: #fff;
-	margin-bottom: 4%;
+	margin-bottom: 2%;
 	border: 1px solid #ccc;
-	padding: 3%;
+	padding: 2%;
 	color: rgb(46, 44, 44);
   font: 95% Arial, Helvetica, sans-serif;
   border-radius: 2px;
@@ -689,7 +689,7 @@ form{
 .form-style-6 select:focus
 {
 	box-shadow: 0 0 5px #43D1AF;
-	padding: 3%;
+	padding: 2%;
   border: 1px solid #43D1AF;
   border-radius: 2px;
 }
@@ -700,7 +700,7 @@ form{
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	width: 100%;
-	padding: 3%;
+	padding: 2%;
 	background: #43D1AF;
   border-bottom: 2px solid #30C29E;
   border-radius: 2px;
