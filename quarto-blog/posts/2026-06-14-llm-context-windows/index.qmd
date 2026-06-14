@@ -1,0 +1,424 @@
+---
+title: "The Long Memory: How LLMs Learned to Read Entire Libraries"
+author: "Rakshit Sakhuja"
+date: "2026-06-14"
+categories: [LLM, Transformers, Architecture, Research]
+description: "A technical deep-dive into the chronological evolution of LLM context windows — from 512 tokens in 2017 to 2M tokens in 2024 — covering every major milestone and its enabling technique."
+---
+
+# The Long Memory: How LLMs Learned to Read Entire Libraries
+
+In 2017, the original Transformer could hold roughly 512 tokens in its head at once — a few paragraphs. By 2024, Gemini 1.5 Pro was processing 2 million tokens, enough to ingest a stack of novels in a single pass. That is a 4,000× expansion in less than a decade.
+
+This post traces every meaningful step on that journey. Not just *what* changed, but *why* each technique existed, what wall it hit, and what came next to break through it.
+
+---
+
+## The Baseline: Transformers and the O(n²) Wall (2017, 512 tokens)
+
+The original "Attention Is All You Need" (Vaswani et al., 2017) introduced **Multi-Head Attention (MHA)** — the mechanism that lets every token attend to every other token in the sequence.
+
+### How Multi-Head Attention Works
+
+For a sequence of length $n$ with model dimension $d$, MHA projects inputs into $h$ parallel heads, each computing:
+
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+Each head independently computes attention, then outputs are concatenated and projected:
+
+$$\text{MHA}(Q, K, V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)W^O$$
+
+The richness of MHA comes from different heads learning different relational patterns — syntactic structure, coreference, semantic similarity — simultaneously.
+
+### The O(n²) Wall
+
+The `softmax(QKᵀ)` step computes an $n \times n$ attention matrix. This is the fundamental bottleneck:
+
+- **Compute**: $O(n^2 \cdot d)$ FLOPs
+- **Memory**: $O(n^2)$ — the attention matrix must be materialized in GPU SRAM
+
+At 512 tokens, that matrix is 512×512 = 262K entries. Manageable. At 100K tokens, it's 10 billion entries — impossible to hold in any GPU's high-bandwidth memory, let alone SRAM. This quadratic scaling is the wall every subsequent technique tries to break, route around, or chip away at.
+
+---
+
+## Positional Encodings: Sinusoidal vs. Learned (2017–2018)
+
+Attention is permutation-invariant by design — the matrix `QKᵀ` doesn't know which token came first. Position must be injected separately.
+
+### Sinusoidal Encodings (Vaswani et al., 2017)
+
+The original Transformer adds fixed sinusoidal signals to token embeddings before attention:
+
+$$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right), \quad PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)$$
+
+**Advantage**: Extrapolates beyond training length in theory (the formula works for any `pos`).
+**Limitation**: In practice, models trained on 512-token sequences perform poorly on 1024-token inference, because the attention distributions they learned are calibrated to that positional scale.
+
+### Learned Positional Embeddings (BERT, GPT-2, 2018–2019)
+
+BERT and GPT-2 replaced sinusoidal signals with learned embedding tables — one trainable vector per position. These are more expressive but strictly cap generalization at the training length. Position 513 has no learned embedding if training only saw 512.
+
+**The hard lesson**: Both approaches made context length a hyperparameter baked into training. To extend it, you needed to retrain — or find a smarter encoding.
+
+---
+
+## BERT and GPT-2: Scaling Within the Wall (2018–2019)
+
+| Model | Year | Context | Architecture Note |
+|-------|------|---------|-------------------|
+| BERT-base | 2018 | 512 | Encoder-only, learned pos. emb. |
+| GPT-2 | 2019 | 1,024 | Decoder-only, learned pos. emb. |
+| GPT-3 | 2020 | 2,048 | Decoder-only, learned pos. emb. |
+
+These models didn't fundamentally change the memory math — they just pushed the quadratic cost further up the compute budget. GPT-3's attention at 2,048 tokens costs $4 \times$ the compute of GPT-2 at 1,024 tokens. Scaling context naively is a brute-force tax.
+
+---
+
+## Sparse Attention: Longformer and BigBird (2020, 4K–16K tokens)
+
+Rather than letting every token attend to every other, what if we restrict attention patterns to only the connections that matter most?
+
+### Longformer (Beltagy et al., 2020)
+
+Longformer introduced a combination of three attention patterns:
+
+1. **Sliding Window (Local) Attention**: Each token attends to $w$ neighbors on each side. Cost: $O(n \cdot w)$ — linear in sequence length.
+2. **Dilated Sliding Window**: Gaps between attended positions, increasing receptive field without more compute.
+3. **Global Attention**: A small set of special tokens (e.g., `[CLS]`) attend to everything. This propagates global context through the network.
+
+Total complexity: $O(n \cdot w + n_g \cdot n)$ where $n_g \ll n$ is the number of global tokens.
+
+Longformer achieved 4,096 tokens as a practical context, enabling processing of full documents without chunking.
+
+### BigBird (Zaheer et al., 2020)
+
+BigBird combined:
+- Local window attention
+- Global tokens
+- **Random attention**: Each token attends to $r$ randomly sampled tokens, ensuring theoretical universal approximation
+
+BigBird proved that $O(n)$ sparse attention can approximate full $O(n^2)$ attention with bounded error — providing the first rigorous theoretical justification that you don't need every pair.
+
+**Limitation shared by both**: Sparse patterns require custom CUDA kernels (slow to develop, often suboptimal), and for models that needed *any* two distant tokens to interact directly, information still had to flow through many attention layers, potentially diluting signal.
+
+---
+
+## FlashAttention: Making O(n²) Fast Through Hardware Awareness (2022)
+
+Here's the insight that changed everything in practice: the O(n²) wall isn't purely algorithmic — it's a **memory bandwidth** problem.
+
+### The Tiling Trick
+
+Standard attention materializes the full $n \times n$ attention matrix in High-Bandwidth Memory (HBM). GPU HBM is large but slow (~2 TB/s for A100). The GPU's SRAM is tiny (~20 MB) but extremely fast (~19 TB/s).
+
+**FlashAttention** (Dao et al., 2022) tiles the computation into blocks that fit in SRAM:
+
+```
+for block i in Q:
+    for block j in K, V:
+        load Q_i, K_j, V_j into SRAM
+        compute local attention scores
+        accumulate into output O_i using online softmax
+        write only O_i back to HBM
+```
+
+The full attention matrix is **never materialized in HBM**. It exists only transiently in SRAM.
+
+### Online Softmax
+
+The challenge: softmax requires seeing all scores to normalize. FlashAttention uses the numerically stable **online softmax** algorithm — maintaining running max and sum across blocks to compute the correct normalization without storing all scores simultaneously:
+
+$$m_i = \max(m_{i-1}, \text{rowmax}(S_{ij})), \quad \ell_i = e^{m_{i-1}-m_i} \ell_{i-1} + \text{rowsum}(e^{S_{ij}-m_i})$$
+
+**Result**: IO complexity drops from $O(n^2 d)$ HBM reads/writes to $O(n^2 d / M)$ where $M$ is SRAM size. In practice: 2–4× wall-clock speedup and 5–20× memory reduction on long sequences.
+
+FlashAttention v2 (2023) extended this to better utilize GPU parallelism, achieving ~72% of A100 peak FLOPs on attention kernels.
+
+**Key insight**: FlashAttention doesn't change the algorithmic complexity. It's still O(n²) in FLOPs. It just makes the constant factor dramatically smaller by respecting the GPU memory hierarchy.
+
+---
+
+## RoPE: Rotary Position Embeddings (2021)
+
+Su et al. (2021) asked a different question: what if position wasn't added to embeddings, but *encoded as a rotation applied during attention*?
+
+### The Mechanism
+
+For a query vector $q_m$ at position $m$ and key vector $k_n$ at position $n$, RoPE applies a rotation matrix $R_{\Theta,m}$ before the dot product:
+
+$$q_m^T k_n = (R_{\Theta,m} q)^T (R_{\Theta,n} k) = q^T R_{\Theta,m}^T R_{\Theta,n} k = q^T R_{\Theta,n-m} k$$
+
+The dot product between query and key now depends only on the **relative position** $(n - m)$, not absolute positions. This is elegant: attention scores naturally encode "how far apart" rather than "where exactly."
+
+In practice, RoPE rotates pairs of dimensions using:
+
+$$\text{RoPE}(x, m) = \begin{pmatrix} x_1 \cos m\theta_1 - x_2 \sin m\theta_1 \\ x_1 \sin m\theta_1 + x_2 \cos m\theta_1 \\ \vdots \end{pmatrix}$$
+
+where $\theta_i = 10000^{-2i/d}$ mirrors the sinusoidal frequency scheme.
+
+### Why RoPE Matters for Long Context
+
+1. **No learned table**: No hard length cap from embedding table size
+2. **Relative distances**: Models trained on short sequences can generalize better to longer ones
+3. **Widely adopted**: LLaMA, Mistral, Falcon, Gemma, Qwen, and virtually all modern open-source models use RoPE
+
+**Limitation**: When inference sequences exceed training length, the rotation angles produce values outside the training distribution. The model has seen $\theta \cdot m$ for $m \leq n_{train}$, but never for $m > n_{train}$. Direct extrapolation degrades rapidly.
+
+---
+
+## ALiBi: Attention with Linear Biases (2022)
+
+Press et al. (2022) took yet another approach: instead of encoding positions in embeddings, add a **learned linear penalty** to attention scores:
+
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}} - m \cdot |i - j|\right)V$$
+
+The scalar $m$ is a head-specific slope (not learned — fixed per head from a geometric sequence). Tokens far apart get penalized with larger negative biases, making attention inherently prefer local context.
+
+**Advantage**: Excellent length generalization — models trained on 1K tokens perform surprisingly well at 2K during inference.
+**Disadvantage**: The hard bias toward local attention can hurt tasks requiring long-range exact recall.
+
+---
+
+## YaRN and NTK-Aware Scaling: Extending RoPE Beyond Training Length (2023)
+
+The key insight from NTK (Neural Tangent Kernel) theory: RoPE's high-frequency dimensions (small $\theta_i$) cycle rapidly with position and generalize well to new lengths; low-frequency dimensions are effectively learned and don't extrapolate. The fix is to scale frequencies to "spread" the training distribution across longer sequences.
+
+### Position Interpolation (Chen et al., 2023)
+
+The simplest fix: divide all positions by a scaling factor $s = L'/L$ where $L'$ is the target context and $L$ is the training context:
+
+$$\text{PI: } m \rightarrow m / s$$
+
+This compresses positions back into the training distribution. It works but reduces resolution — two nearby tokens that were 1 unit apart become $1/s$ units apart, and the model loses fine-grained positional sensitivity.
+
+### NTK-Aware Scaling (bloc97, 2023)
+
+Scale the base of the frequency formula rather than the positions:
+
+$$\theta_i' = 10000^{-2i/d} \rightarrow (10000 \cdot s)^{-2i/d}$$
+
+This stretches low-frequency dimensions (which need to cover longer range) while preserving high-frequency dimensions (which handle local structure). Result: better length generalization with less perplexity degradation.
+
+### YaRN (Peng et al., 2023)
+
+YaRN (Yet Another RoPE Extension Method) combines interpolation, NTK-aware scaling, and a **temperature adjustment to the attention entropy**:
+
+$$\text{YaRN: } \text{softmax}\left(\frac{QK^T}{\sqrt{d_k} \cdot t}\right)$$
+
+where $t$ is a learned temperature that counteracts the flattening of attention distributions at longer sequences. YaRN allowed LLaMA-2 (trained on 4K) to effectively handle 128K tokens with only a small amount of fine-tuning on long-context data.
+
+---
+
+## Grouped Query Attention (GQA): Memory Efficiency at Scale (2023)
+
+As context grows, the KV cache becomes a dominant memory cost. For a batch of size $B$, sequence length $n$, with $h$ heads and dimension $d$:
+
+$$\text{KV cache size} = 2 \cdot B \cdot n \cdot h \cdot d \cdot \text{bytes\_per\_param}$$
+
+At 100K tokens, B=1, h=32, d=128: that's ~3.2 GB in fp16 for keys+values alone.
+
+### Multi-Query Attention (MQA)
+
+Shazeer (2019) proposed sharing a single KV head across all query heads. Reduces KV cache by $h \times$, but harms model quality.
+
+### GQA
+
+Ainslie et al. (2023) found the sweet spot: group query heads into $g$ groups, each sharing one KV head. LLaMA-3, Mistral, Gemma-2, and Qwen2 all use GQA with $g=8$ (i.e., 8 KV heads for 32+ query heads):
+
+$$\text{KV cache} = 2 \cdot B \cdot n \cdot g \cdot d \cdot \text{bytes}$$
+
+With $g=8$ instead of $h=32$: 4× KV cache reduction, enabling longer effective context with the same GPU memory.
+
+---
+
+## Sliding Window Attention: Mistral's Local Attention (2023)
+
+Mistral 7B (Jiang et al., 2023) incorporated **Sliding Window Attention (SWA)** directly into a production model. Each token attends only to the $w$ preceding tokens (window size $w = 4096$). Through $L$ layers, the effective receptive field grows as $w \times L$ — Mistral's 32-layer model had an effective context of $\sim$131K tokens despite a window of 4K per layer.
+
+**Why this works**: In practice, information needs to be propagated but doesn't need to be *attended to directly* from very long range. Stacking local attention layers achieves global coverage with $O(n \cdot w)$ complexity.
+
+**Combined with Rolling Buffer KV Cache**: Mistral discarded KV entries older than the window, keeping memory constant regardless of total sequence length processed.
+
+---
+
+## GPT-4 Turbo and Claude: Pushing to 128K–200K (2023)
+
+| Model | Context | Primary Techniques |
+|-------|---------|-------------------|
+| GPT-4 Turbo | 128K | FlashAttention-2, RoPE + PI |
+| Claude 2.1 | 200K | Sparse + dense hybrid, constitutional training |
+| Mistral Large | 32K | SWA + GQA + RoPE |
+
+At 128K tokens, the naive $O(n^2)$ attention matrix would be 16 billion entries — roughly 32 GB in fp32. FlashAttention makes this tractable by never materializing it. RoPE with position interpolation handles the positional distribution mismatch.
+
+**Claude's 200K context** was notable for high recall accuracy at long range, suggesting Anthropic combined architectural tricks with careful training on long-document data.
+
+---
+
+## Ring Attention: Distributed Context Across Devices (2023)
+
+Li et al. (2023) introduced **Ring Attention** to enable sequences too long for a single device by distributing attention computation across a ring of GPUs:
+
+```
+Device 1: holds Q1, K1, V1
+Device 2: holds Q2, K2, V2
+...
+Device N: holds QN, KN, VN
+
+Each step: compute local attention block
+           pass KV to next device in ring (all-reduce-like)
+           accumulate output using online softmax
+```
+
+Since KV blocks are passed in a ring while local QKV computation happens simultaneously, communication is overlapped with computation — effectively hiding the inter-device latency.
+
+Ring Attention is what enables Gemini 1.5's million-token context: the sequence is spread across a TPU pod, and attention computation proceeds as a coordinated ring operation.
+
+---
+
+## Mixture of Experts: Context + Efficiency (2022–2024)
+
+**Sparse MoE** doesn't directly extend context windows, but it enables the model capacity needed to *use* long context without proportional compute increases.
+
+For each token, a **router** selects $k$ of $E$ experts (FFN blocks) to activate:
+
+$$y = \sum_{i=1}^{E} G(x)_i \cdot E_i(x), \quad G(x) = \text{Top-}k(\text{softmax}(Wx))$$
+
+Mixtral 8×7B (2023): 8 experts, 2 activated per token. Total parameters: 46B. Active parameters per token: ~13B. You get 46B-quality representations at 13B inference cost. This efficiency headroom is deployed toward longer context.
+
+Gemini 1.5 (2024) combines MoE with Ring Attention to reach 1M tokens. Without MoE, the dense model would be prohibitively expensive at that scale.
+
+---
+
+## Gemini 1.5 Pro: 1M–2M Tokens (2024)
+
+Google's Gemini 1.5 Pro pushed context to 1 million tokens (with 2M in experimental mode), making possible:
+- Full codebase ingestion
+- Hour-long video understanding (video tokens are dense)
+- Multi-document legal analysis
+
+**Technical stack** (inferred from paper + architecture trends):
+- **MoE architecture** for parameter efficiency
+- **Ring Attention** for distributed sequence parallelism across TPU pods
+- **RoPE + LongRoPE** for positional encoding at extreme lengths
+- **Multi-modal token compression** for non-text modalities
+
+Benchmark results showed >99% recall accuracy on needle-in-a-haystack retrieval at 1M tokens — context wasn't just available, it was actually *used*.
+
+---
+
+## LongRoPE: Pushing RoPE to Extreme Lengths (2024)
+
+Ding et al. (2024) from Microsoft observed that standard RoPE extension methods applied a uniform scaling — but different RoPE dimensions have different sensitivities to length extension.
+
+**LongRoPE** uses **non-uniform scaling**: each dimension $i$ gets its own scaling factor $\lambda_i$, determined by an evolutionary search over a small fine-tuning dataset:
+
+$$\theta_i' = \theta_i \cdot \lambda_i$$
+
+Additionally, LongRoPE uses a **two-phase training strategy**:
+1. Fine-tune at 256K context with LongRoPE scaling
+2. Scale up to the target 2M context using a final non-uniform interpolation pass
+
+Microsoft's Phi-3 Mini (3.8B parameters) was extended to 128K context using LongRoPE. The approach achieves better perplexity at long range than YaRN or NTK-aware scaling with the same fine-tuning budget.
+
+---
+
+## Mamba and SSMs: Breaking the O(n²) Paradigm (2023–2024)
+
+All the techniques above fight the $O(n^2)$ cost of attention. **Structured State Space Models (SSMs)** sidestep it entirely.
+
+### The State Space Formulation
+
+An SSM maps input $u(t)$ to output $y(t)$ through a latent state $x(t)$:
+
+$$\dot{x}(t) = Ax(t) + Bu(t)$$
+$$y(t) = Cx(t) + Du(t)$$
+
+In discrete form, this becomes a linear recurrence — computable in $O(n)$ sequentially, or $O(n \log n)$ in parallel using the **parallel scan** algorithm.
+
+### Mamba (Gu & Dao, 2023)
+
+The key limitation of earlier SSMs (S4, H3) was that the $A, B, C$ matrices were fixed — the model couldn't selectively focus on relevant inputs. Mamba introduced **selective state spaces**: the parameters become functions of the input:
+
+$$B_t = \text{Linear}(u_t), \quad C_t = \text{Linear}(u_t), \quad \Delta_t = \text{Softplus}(\text{Linear}(u_t))$$
+
+The $\Delta_t$ (discretization step) controls how much each timestep updates the state. For relevant tokens, $\Delta_t$ is large (the state absorbs the input). For irrelevant tokens, $\Delta_t$ is small (the state carries forward unchanged). This is selective attention implemented as a state update, not a dot product.
+
+**Complexity**: $O(n \cdot d_{state})$ — linear in sequence length. The state is a fixed-size vector regardless of sequence length, so memory is $O(1)$ during inference (unlike KV cache which grows as $O(n)$).
+
+**Tradeoff**: SSMs excel at compression tasks and streaming inference, but struggle with *exact recall* of arbitrary past tokens. If the relevant token was overwritten in the state, it's gone. Attention can always retrieve a specific past token as long as context window permits; Mamba cannot guarantee this.
+
+### Hybrid Architectures (2024)
+
+The field has converged on **hybrid models** — interleaving attention layers (for precise retrieval) with SSM layers (for efficient summarization):
+
+- **Jamba** (AI21, 2024): Mamba + Transformer layers + MoE
+- **Zamba** (Zyphra, 2024): 6:1 Mamba-to-attention ratio
+- **Falcon Mamba** (TII, 2024): Pure SSM at 7B scale
+
+The bet: use attention sparingly for retrieval-critical layers, SSMs for cheap long-range compression.
+
+---
+
+## Complete Evolution Table
+
+| Year | Model/Technique | Context | Key Technique | Core Limitation |
+|------|----------------|---------|---------------|----------------|
+| 2017 | Transformer (Vaswani) | 512 | Multi-Head Attention, sinusoidal pos. enc. | O(n²) memory, fixed length |
+| 2018 | BERT | 512 | Learned pos. embeddings, bidirectional | Hard length cap from embedding table |
+| 2019 | GPT-2 | 1,024 | Decoder-only, learned pos. emb. | O(n²) cost, no extrapolation |
+| 2020 | GPT-3 | 2,048 | Scale + learned pos. | Brute-force compute tax |
+| 2020 | Longformer | 4,096 | Sparse local + global attention | Custom kernels, indirect long-range |
+| 2020 | BigBird | 4,096–16K | Sparse: local + global + random | Approximate retrieval |
+| 2021 | RoPE (Su et al.) | N/A (encoding) | Rotary relative position | Degrades past training length |
+| 2022 | ALiBi | 2K→8K+ | Linear attention bias, no pos. emb. | Biases against long-range recall |
+| 2022 | FlashAttention v1 | Enables 8K–32K | IO-aware tiling, online softmax | Still O(n²) FLOPs, hardware-specific |
+| 2022 | Sparse MoE (ST-MoE) | — | Expert routing, efficiency headroom | Load balancing, routing instability |
+| 2023 | FlashAttention v2 | Enables 32K–100K | Parallel attention, 72% peak MFU | Still O(n²) FLOPs |
+| 2023 | GQA | — | Shared KV heads across groups | Quality vs. compression tradeoff |
+| 2023 | YaRN / NTK | 32K–128K+ | Non-uniform RoPE interpolation | Requires fine-tuning on long data |
+| 2023 | Mistral 7B | 32K | SWA + GQA + RoPE | Fixed receptive field per layer |
+| 2023 | GPT-4 Turbo | 128K | FlashAttention-2 + RoPE interpolation | Cost at inference, not public details |
+| 2023 | Claude 2.1 | 200K | Sparse+dense hybrid, long-context training | Recall degrades at extreme lengths |
+| 2023 | Ring Attention | Unlimited* | Distributed seq. parallelism, TPU ring | Multi-device infrastructure required |
+| 2023 | Mamba (SSM) | Theoretically ∞ | Selective state spaces, O(n) compute | Cannot guarantee exact token recall |
+| 2024 | Gemini 1.5 Pro | 1M–2M | MoE + Ring Attention + LongRoPE | Latency, cost, hardware requirements |
+| 2024 | LongRoPE | Up to 2M | Non-uniform per-dim RoPE scaling | Evolutionary search overhead |
+| 2024 | Jamba / Hybrid SSM | 256K+ | Mamba + Attention interleaved | Architecture complexity, training cost |
+
+---
+
+## Why This All Matters
+
+Context length isn't just a benchmark number. It fundamentally changes what you can ask a language model to do:
+
+- **512 tokens**: Answer a question about a paragraph
+- **4K tokens**: Summarize a short article, hold a multi-turn conversation
+- **32K tokens**: Analyze a research paper end-to-end
+- **128K tokens**: Audit a codebase, process a legal contract
+- **1M tokens**: Ingest an entire software project, analyze hours of video
+
+The progression wasn't linear. It required breakthroughs in hardware-aware algorithms (FlashAttention), positional encoding theory (RoPE/YaRN), memory efficiency (GQA), distributed systems (Ring Attention), and entirely new computational paradigms (SSMs).
+
+The next frontier isn't just *longer* — it's *smarter memory*. Models that learn which parts of a long context to retrieve, compress, or discard. That's the problem Mamba-style hybrids, compressed KV cache methods (like H2O and Scissorhands), and memory-augmented architectures are beginning to tackle.
+
+---
+
+## References
+
+- Vaswani et al. (2017). *Attention Is All You Need*. NeurIPS.
+- Devlin et al. (2018). *BERT: Pre-training of Deep Bidirectional Transformers*. NAACL.
+- Radford et al. (2019). *Language Models are Unsupervised Multitask Learners* (GPT-2). OpenAI.
+- Beltagy et al. (2020). *Longformer: The Long-Document Transformer*. arXiv:2004.05150.
+- Zaheer et al. (2020). *Big Bird: Transformers for Longer Sequences*. NeurIPS.
+- Su et al. (2021). *RoFormer: Enhanced Transformer with Rotary Position Embedding*. arXiv:2104.09864.
+- Press et al. (2022). *Train Short, Test Long: Attention with Linear Biases (ALiBi)*. ICLR.
+- Dao et al. (2022). *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness*. NeurIPS.
+- Ainslie et al. (2023). *GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints*. arXiv:2305.13245.
+- Dao et al. (2023). *FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning*. ICLR 2024.
+- Peng et al. (2023). *YaRN: Efficient Context Window Extension of Large Language Models*. arXiv:2309.00071.
+- Jiang et al. (2023). *Mistral 7B*. arXiv:2310.06825.
+- Li et al. (2023). *Ring Attention with Blockwise Transformers for Near-Infinite Context*. arXiv:2310.01889.
+- Gu & Dao (2023). *Mamba: Linear-Time Sequence Modeling with Selective State Spaces*. arXiv:2312.00752.
+- Ding et al. (2024). *LongRoPE: Extending LLM Context Window Beyond 2 Million Tokens*. arXiv:2402.13753.
+- Reid et al. (2024). *Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context*. arXiv:2403.05530.

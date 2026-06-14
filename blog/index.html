@@ -1,790 +1,600 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>AI/ML Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI/ML Notes — Rakshit Sakhuja</title>
+<meta name="description" content="Technical writing on machine learning, deep learning architecture, and AI systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
+  /* ── Reset & Base ─────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-card: #ffffff;
+    --border: #e5e7eb;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --accent-bg: #eef2ff;
+    --tag-bg: #f3f4f6;
+    --tag-text: #374151;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+    --shadow-hover: 0 8px 30px rgba(99,102,241,.15), 0 4px 12px rgba(0,0,0,.06);
+    --radius: 14px;
+    --nav-height: 64px;
+    --transition: all .2s cubic-bezier(.4,0,.2,1);
+  }
+
+  [data-theme="dark"] {
+    --bg: #0f0f13;
+    --bg-secondary: #16161d;
+    --bg-card: #1a1a24;
+    --border: #2a2a38;
+    --text-primary: #f1f1f5;
+    --text-secondary: #9898b3;
+    --text-muted: #5e5e7a;
+    --accent: #818cf8;
+    --accent-light: #a5b4fc;
+    --accent-bg: #1e1b4b;
+    --tag-bg: #23232f;
+    --tag-text: #b4b4cc;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+    --shadow-hover: 0 8px 30px rgba(129,140,248,.2), 0 4px 12px rgba(0,0,0,.3);
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    transition: background .3s ease, color .3s ease;
+  }
+
+  /* ── Navigation ───────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    z-index: 100;
+    transition: var(--transition);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: var(--transition);
+  }
+  .nav-links a:hover { color: var(--text-primary); background: var(--tag-bg); }
+  .nav-links a.active { color: var(--accent); background: var(--accent-bg); }
+  .theme-toggle {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: .85rem;
+    transition: var(--transition);
+    line-height: 1;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+
+  /* ── Hero ─────────────────────────────────────────── */
+  .hero {
+    padding: calc(var(--nav-height) + 64px) 24px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 520px;
+    line-height: 1.65;
+  }
+
+  /* ── Stats ────────────────────────────────────────── */
+  .stats-bar {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    padding: 0 24px 40px;
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .stat { display: flex; flex-direction: column; }
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .stat-label { font-size: .77rem; color: var(--text-muted); font-weight: 500; }
+
+  /* ── Filter Bar ───────────────────────────────────── */
+  .filter-bar {
+    max-width: 1100px;
+    margin: 0 auto 32px;
+    padding: 0 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-label {
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    margin-right: 4px;
+  }
+  .filter-btn {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: .8rem;
+    font-weight: 500;
+    font-family: inherit;
+    padding: 5px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── Posts Grid ───────────────────────────────────── */
+  .posts-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 22px;
+  }
+
+  /* Featured post spans full width */
+  .post-card.featured {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+  .post-card.featured .card-accent-bar {
+    width: 4px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-light) 100%);
+  }
+  .post-card.featured .card-body { padding: 36px 40px; }
+  .post-card.featured .card-title { font-size: 1.45rem; }
+  .post-card.featured .card-description { -webkit-line-clamp: 4; }
+
+  .post-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+  }
+  .card-top-bar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .post-card:hover .card-top-bar { opacity: 1; }
+
+  .card-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .card-date {
+    font-size: .76rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .card-reading-time { font-size: .76rem; color: var(--text-muted); }
+  .card-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+  .card-badge {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    transition: color .15s ease;
+  }
+  .post-card:hover .card-title { color: var(--accent); }
+  .card-description {
+    font-size: .88rem;
+    color: var(--text-secondary);
+    line-height: 1.62;
+    margin-bottom: 20px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .card-tag {
+    font-size: .7rem;
+    font-weight: 600;
+    color: var(--tag-text);
+    background: var(--tag-bg);
+    padding: 3px 9px;
+    border-radius: 5px;
+    transition: var(--transition);
+  }
+  .post-card:hover .card-tag { background: var(--accent-bg); color: var(--accent); }
+  .card-arrow {
+    color: var(--text-muted);
+    font-size: 1rem;
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+  .post-card:hover .card-arrow { color: var(--accent); transform: translateX(3px); }
+
+  /* ── Empty & Footer ───────────────────────────────── */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: .82rem;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── Responsive ───────────────────────────────────── */
+  @media (max-width: 700px) {
+    .post-card.featured { flex-direction: column; }
+    .post-card.featured .card-accent-bar { width: 100%; height: 3px; }
+    .post-card.featured .card-body { padding: 22px; }
+    .post-card.featured .card-title { font-size: 1.15rem; }
+    .hero h1 { font-size: 1.75rem; }
+    .stats-bar { gap: 22px; }
+  }
+
+  .hidden { display: none !important; }
 </style>
-
-
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
 </head>
+<body data-theme="light">
 
-<body class="nav-fixed quarto-light">
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">AI/ML Notes</span>
-    </a>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">AI<span>/</span>ML Notes</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html" class="active">Blog</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle dark/light mode">🌙</button>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">AI/ML Notes</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#latest-posts" id="toc-latest-posts" class="nav-link active" data-scroll-target="#latest-posts">Latest Posts</a></li>
-  </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="QXp1cmU=">Azure <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q2xvdWQ=">Cloud <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YWJhc2U=">database <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGVlcCUyMExlYXJuaW5n">Deep Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZWxhc3RpY3NlYXJjaA==">elasticsearch <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZXhhbXBsZQ==">example <span class="quarto-category-count">(1)</span></div><div class="category" data-category="a2FnZ2xl">kaggle <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWFjaGluZSUyMExlYXJuaW5n">Machine Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFjaGluZS1sZWFybmluZw==">machine-learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFya2Rvd24=">markdown <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TUxPcHM=">MLOps <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TW9kZWwlMjBPcHRpbWl6YXRpb24=">Model Optimization <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHJvZHVjdGlvbiUyME1M">Production ML <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVjb21tZW5kYXRpb24tc3lzdGVtcw==">recommendation-systems <span class="quarto-category-count">(1)</span></div></div></div>
-<!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
+<header class="hero">
+  <div class="hero-eyebrow">Technical Writing</div>
+  <h1>AI&thinsp;/&thinsp;ML Notes</h1>
+  <p>Deep-dives on machine learning architecture, model optimization, and AI systems — written for practitioners who want to understand the <em>why</em>.</p>
+</header>
 
-
-
-
-<p>Welcome to my AI/ML blog! This is a collection of my notes and insights on Machine Learning, Deep Learning, and related topics.</p>
-<section id="latest-posts" class="level2">
-<h2 class="anchored" data-anchor-id="latest-posts">Latest Posts</h2>
-
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="QXp1cmUlMkNNYWNoaW5lJTIwTGVhcm5pbmclMkNDbG91ZA==" data-listing-date-sort="1735660800000" data-listing-file-modified-sort="1754773715690" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="258">
-<div class="thumbnail"><a href="./posts/2025-01-01-azure-ml/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/2025-01-01-azure-ml/AzureChoosingPipeline.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-01-01-azure-ml/index.html" class="no-external">Azure Machine Learning</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('QXp1cmU='); return false;">Azure</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWFjaGluZSUyMExlYXJuaW5n'); return false;">Machine Learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Q2xvdWQ='); return false;">Cloud</div>
-
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-value">5</span>
+    <span class="stat-label">Articles</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">~75 min</span>
+    <span class="stat-label">Total read time</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value">2022–2026</span>
+    <span class="stat-label">Span</span>
+  </div>
 </div>
-<div class="delink listing-description"><a href="./posts/2025-01-01-azure-ml/index.html" class="no-external">
-<p>Azure Machine Learning and its components</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-01-01-azure-ml/index.html" class="no-external">
-<div class="listing-date">
-Jan 1, 2025
-</div>
-<div class="listing-author">
-Rakshit Sakhuja
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="RGVlcCUyMExlYXJuaW5nJTJDTW9kZWwlMjBPcHRpbWl6YXRpb24lMkNNTE9wcyUyQ1Byb2R1Y3Rpb24lMjBNTA==" data-listing-date-sort="1723046400000" data-listing-file-modified-sort="1754784886243" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6956">
-<div class="thumbnail"><a href="./posts/2025-01-09-quantization-distillation/index.html" class="no-external">
 
-<img loading="lazy" src="./posts/2025-01-09-quantization-distillation/quantization_distillation.png" class="thumbnail-image">
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="LLM">LLM</button>
+  <button class="filter-btn" data-filter="Architecture">Architecture</button>
+  <button class="filter-btn" data-filter="Deep Learning">Deep Learning</button>
+  <button class="filter-btn" data-filter="MLOps">MLOps</button>
+  <button class="filter-btn" data-filter="Azure">Azure</button>
+</div>
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-01-09-quantization-distillation/index.html" class="no-external">Model Optimization Techniques: A Deep Dive into Quantization and Knowledge Distillation</a>
-</h3>
-<div class="listing-categories">
+<main class="posts-grid" id="postsGrid">
 
-<div class="listing-category" onclick="window.quartoListingCategory('RGVlcCUyMExlYXJuaW5n'); return false;">Deep Learning</div>
+  <!-- Featured: latest post -->
+  <a class="post-card featured"
+     href="posts/2026-06-14-llm-context-windows/index.html"
+     data-tags="LLM,Transformers,Architecture,Research">
+    <div class="card-accent-bar"></div>
+    <div class="card-body">
+      <div class="card-meta-row">
+        <span class="card-badge">✦ Latest</span>
+        <span class="card-dot"></span>
+        <span class="card-date">2026-06-14</span>
+        <span class="card-dot"></span>
+        <span class="card-reading-time">~40 min read</span>
+      </div>
+      <div class="card-title">The Long Memory: How LLMs Learned to Read Entire Libraries</div>
+      <div class="card-description">
+        A chronological deep-dive into the evolution of LLM context windows from 512 tokens in 2017 to 2M tokens in 2024. Covers every major milestone: Multi-Head Attention's O(n²) wall, FlashAttention tiling + online softmax, RoPE, YaRN/NTK-aware scaling, GQA, Sliding Window Attention, Ring Attention, MoE, LongRoPE, and Mamba's state-space approach. Includes a complete comparison table mapping every model and technique.
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="card-tag">LLM</span>
+          <span class="card-tag">Transformers</span>
+          <span class="card-tag">Architecture</span>
+          <span class="card-tag">Research</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </a>
 
-<div class="listing-category" onclick="window.quartoListingCategory('TW9kZWwlMjBPcHRpbWl6YXRpb24='); return false;">Model Optimization</div>
+  <!-- Post 2 -->
+  <a class="post-card"
+     href="posts/2025-08-08-quantization-distillation/index.html"
+     data-tags="Deep Learning,Model Optimization,MLOps,Production ML">
+    <div class="card-top-bar"></div>
+    <div class="card-body">
+      <div class="card-meta-row">
+        <span class="card-date">2025-08-08</span>
+        <span class="card-dot"></span>
+        <span class="card-reading-time">~35 min read</span>
+      </div>
+      <div class="card-title">Model Optimization: Quantization and Knowledge Distillation</div>
+      <div class="card-description">
+        Technical implementation guide to model compression — PTQ, QAT, INT8 quantization, and knowledge distillation with code examples and performance benchmarks on a 175M parameter transformer.
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="card-tag">Deep Learning</span>
+          <span class="card-tag">Model Optimization</span>
+          <span class="card-tag">MLOps</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </a>
 
-<div class="listing-category" onclick="window.quartoListingCategory('TUxPcHM='); return false;">MLOps</div>
+  <!-- Post 3 -->
+  <a class="post-card"
+     href="posts/2023-12-01-azure-ml/index.html"
+     data-tags="Azure,Machine Learning,Cloud">
+    <div class="card-top-bar"></div>
+    <div class="card-body">
+      <div class="card-meta-row">
+        <span class="card-date">2023-12-01</span>
+        <span class="card-dot"></span>
+        <span class="card-reading-time">~5 min read</span>
+      </div>
+      <div class="card-title">Azure Machine Learning</div>
+      <div class="card-description">
+        A practical overview of Azure ML components — compute resources, ML infrastructure services, and model services — and how to choose between them for production deployments.
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="card-tag">Azure</span>
+          <span class="card-tag">Machine Learning</span>
+          <span class="card-tag">Cloud</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </a>
 
-<div class="listing-category" onclick="window.quartoListingCategory('UHJvZHVjdGlvbiUyME1M'); return false;">Production ML</div>
+  <!-- Post 4 -->
+  <a class="post-card"
+     href="posts/2022-10-01-elasticsearch/index.html"
+     data-tags="Elasticsearch,Python,Database">
+    <div class="card-top-bar"></div>
+    <div class="card-body">
+      <div class="card-meta-row">
+        <span class="card-date">2022-10-01</span>
+        <span class="card-dot"></span>
+        <span class="card-reading-time">~8 min read</span>
+      </div>
+      <div class="card-title">Elasticsearch for ML Engineers</div>
+      <div class="card-description">
+        Practical guide to using Elasticsearch for vector search and retrieval in ML pipelines — indexing embeddings, approximate nearest neighbor search, and integrating with Python applications.
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="card-tag">Elasticsearch</span>
+          <span class="card-tag">Python</span>
+          <span class="card-tag">Database</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </a>
 
-</div>
-<div class="delink listing-description"><a href="./posts/2025-01-09-quantization-distillation/index.html" class="no-external">
-<p>Technical implementation guide to model compression techniques - quantization and distillation methods with code examples and performance benchmarks.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-01-09-quantization-distillation/index.html" class="no-external">
-<div class="listing-date">
-Aug 8, 2024
-</div>
-<div class="listing-author">
-Rakshit Sakhuja
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="ZWxhc3RpY3NlYXJjaCUyQ3B5dGhvbiUyQ2RhdGFiYXNl" data-listing-date-sort="1664553600000" data-listing-file-modified-sort="1754784867658" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="474">
-<div class="thumbnail"><a href="./posts/2025-08-08-elasticsearch/index.html" class="no-external">
+  <!-- Post 5 -->
+  <a class="post-card"
+     href="posts/2022-07-28-recommender-systems/index.html"
+     data-tags="Machine Learning,Recommendation Systems,Kaggle">
+    <div class="card-top-bar"></div>
+    <div class="card-body">
+      <div class="card-meta-row">
+        <span class="card-date">2022-07-28</span>
+        <span class="card-dot"></span>
+        <span class="card-reading-time">~12 min read</span>
+      </div>
+      <div class="card-title">Recommender Systems: Collaborative Filtering to Neural Approaches</div>
+      <div class="card-description">
+        From matrix factorization to deep learning-based recommenders — covering collaborative filtering, content-based methods, and modern two-tower architectures with implementation notes.
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="card-tag">Machine Learning</span>
+          <span class="card-tag">Recommendation</span>
+          <span class="card-tag">Kaggle</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </div>
+  </a>
 
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+  <div class="empty-state hidden" id="emptyState">No posts match that filter yet.</div>
+</main>
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-08-08-elasticsearch/index.html" class="no-external">ElasticSearch - Create and Delete operations in Python</a>
-</h3>
-<div class="listing-categories">
+<footer>
+  <p>Written by <a href="../about.html">Rakshit Sakhuja</a> &nbsp;·&nbsp; <a href="../index.html">rakshitsakhuja.github.io</a></p>
+</footer>
 
-<div class="listing-category" onclick="window.quartoListingCategory('ZWxhc3RpY3NlYXJjaA=='); return false;">elasticsearch</div>
+<script>
+  // Theme
+  const body = document.body;
+  const themeBtn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('rs-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initTheme = saved || (prefersDark ? 'dark' : 'light');
+  body.dataset.theme = initTheme;
+  themeBtn.textContent = initTheme === 'dark' ? '☀️' : '🌙';
 
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YWJhc2U='); return false;">database</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/2025-08-08-elasticsearch/index.html" class="no-external">
-<p>ElasticSearch and Python Implementation for CRUD operations</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-08-08-elasticsearch/index.html" class="no-external">
-<div class="listing-date">
-Oct 1, 2022
-</div>
-<div class="listing-author">
-Rakshit Sakhuja
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="bWFjaGluZS1sZWFybmluZyUyQ3JlY29tbWVuZGF0aW9uLXN5c3RlbXMlMkNrYWdnbGU=" data-listing-date-sort="1580140800000" data-listing-file-modified-sort="1754773997818" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
-<div class="thumbnail"><a href="./posts/2020-01-28-recommender-systems/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2020-01-28-recommender-systems/index.html" class="no-external">Recommender Systems - Blogs from Kaggle</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVjb21tZW5kYXRpb24tc3lzdGVtcw=='); return false;">recommendation-systems</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('a2FnZ2xl'); return false;">kaggle</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/2020-01-28-recommender-systems/index.html" class="no-external">
-<p>Collection of useful links and concepts about building recommendation systems from Kaggle tutorials</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2020-01-28-recommender-systems/index.html" class="no-external">
-<div class="listing-date">
-Jan 28, 2020
-</div>
-<div class="listing-author">
-Rakshit Sakhuja
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="bWFya2Rvd24lMkNleGFtcGxl" data-listing-date-sort="1578931200000" data-listing-file-modified-sort="1754773654966" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="139">
-<div class="thumbnail"><a href="./posts/2020-01-14-markdown-example/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2020-01-14-markdown-example/index.html" class="no-external">An Example Markdown Post</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFya2Rvd24='); return false;">markdown</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZXhhbXBsZQ=='); return false;">example</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/2020-01-14-markdown-example/index.html" class="no-external">
-<p>A minimal example of using markdown with Quarto.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2020-01-14-markdown-example/index.html" class="no-external">
-<div class="listing-date">
-Jan 14, 2020
-</div>
-<div class="listing-author">
-Rakshit Sakhuja
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
-        }
-        return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-        }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
-      } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
-      }
-    }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
-          }
-        } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
-            if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
-      } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
-        });
-      }
-    }
+  themeBtn.addEventListener('click', () => {
+    const next = body.dataset.theme === 'dark' ? 'light' : 'dark';
+    body.dataset.theme = next;
+    themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('rs-theme', next);
   });
-  </script>
-</div> <!-- /content -->
 
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.post-card');
+  const emptyState = document.getElementById('emptyState');
 
-
-
-</body></html>
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      let count = 0;
+      cards.forEach(card => {
+        const tags = card.dataset.tags || '';
+        const show = filter === 'all' || tags.toLowerCase().includes(filter.toLowerCase());
+        card.classList.toggle('hidden', !show);
+        if (show) count++;
+      });
+      emptyState.classList.toggle('hidden', count > 0);
+    });
+  });
+</script>
+</body>
+</html>
